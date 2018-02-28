@@ -14,6 +14,9 @@
                             <a href="<?= base_url( 'admin-dinas/data-sekolah' ) ?>" class="waves-effect"><i class="fa fa-columns m-r-10" aria-hidden="true"></i>Data Sekolah</a>
                         </li>
                         <li>
+                            <a href="<?= base_url( 'admin-dinas/data-penilaian' ) ?>" class="waves-effect"><i class="fa fa-edit m-r-10" aria-hidden="true"></i>Data Penilaian Sekolah</a>
+                        </li>
+                        <li>
                             <a href="<?= base_url( 'admin-dinas/data-kriteria' ) ?>" class="waves-effect"><i class="fa fa-table m-r-10" aria-hidden="true"></i>Data Kriteria</a>
                         </li>
                         <li>

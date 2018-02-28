@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 28, 2018 at 03:15 PM
+-- Generation Time: Mar 01, 2018 at 12:46 AM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.11
 
@@ -47,7 +47,16 @@ INSERT INTO `bobot` (`id_bobot`, `nama`, `nilai`, `id_kriteria`, `created_at`, `
 (4, 'Guru mengajar sesuai prosedur dan memiliki sertifikasi', 5, 1, '2018-02-28 13:52:31', '2018-02-28 13:52:31'),
 (5, 'Kepala sekolah belum berperan sebagai professional leader dalam tindakan dan perilaku internal sekolah', 1, 2, '2018-02-28 13:53:14', '2018-02-28 13:53:14'),
 (6, 'Kepala sekolah belum sepenuhnya berperan sebagai professional leader dalam tindakan dan perilaku internal sekolah', 3, 2, '2018-02-28 13:53:41', '2018-02-28 13:53:41'),
-(7, 'Kepala sekolah telah berperan sebagai professional leader dalam tindakan dan perilaku internal sekolah', 5, 2, '2018-02-28 13:54:03', '2018-02-28 13:54:03');
+(7, 'Kepala sekolah telah berperan sebagai professional leader dalam tindakan dan perilaku internal sekolah', 5, 2, '2018-02-28 13:54:03', '2018-02-28 13:54:03'),
+(8, 'Belum adanya sarana dan prasarana yang memenuhi standar sekolah', 1, 3, '2018-02-28 23:20:08', '2018-02-28 23:20:08'),
+(9, 'Sarana dan prasarana yang memenuhi standar sekolah yang belum lengkap', 3, 3, '2018-02-28 23:20:39', '2018-02-28 23:20:39'),
+(10, 'Sarana dan prasarana yang memenuhi standar sekolah yang lengkap', 5, 3, '2018-02-28 23:21:09', '2018-02-28 23:21:09'),
+(11, 'Lingkungan seperti taman sekolah belum ada', 1, 4, '2018-02-28 23:21:35', '2018-02-28 23:21:35'),
+(12, 'Lingkungan seperti taman sekolah yang hanya memiliki beberapa saja', 3, 4, '2018-02-28 23:21:56', '2018-02-28 23:21:56'),
+(13, 'Lingkungan seperti taman sekolah yang cukup memenuhi standar sekolah', 5, 4, '2018-02-28 23:22:21', '2018-02-28 23:22:21'),
+(14, 'Pembelajaran di sekolah yang tidak kondusif', 1, 6, '2018-02-28 23:22:44', '2018-02-28 23:22:44'),
+(15, 'Kualitas belajar yang belum mumpunin', 3, 6, '2018-02-28 23:22:58', '2018-02-28 23:22:58'),
+(16, 'Kualitas belajar yang sudah memenuhi standar kriteria', 5, 6, '2018-02-28 23:23:19', '2018-02-28 23:23:19');
 
 -- --------------------------------------------------------
 
@@ -92,6 +101,40 @@ CREATE TABLE `pengguna` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `penilaian`
+--
+
+CREATE TABLE `penilaian` (
+  `id_nilai` int(11) NOT NULL,
+  `id_sekolah` int(11) NOT NULL,
+  `id_kriteria` int(11) NOT NULL,
+  `id_bobot` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `penilaian`
+--
+
+INSERT INTO `penilaian` (`id_nilai`, `id_sekolah`, `id_kriteria`, `id_bobot`) VALUES
+(1, 2, 1, 3),
+(2, 2, 2, 7),
+(3, 2, 3, 9),
+(4, 2, 4, 13),
+(5, 2, 6, 14),
+(6, 3, 1, 2),
+(7, 3, 2, 6),
+(8, 3, 3, 10),
+(9, 3, 4, 11),
+(10, 3, 6, 15),
+(11, 4, 1, 3),
+(12, 4, 2, 5),
+(13, 4, 3, 10),
+(14, 4, 4, 12),
+(15, 4, 6, 15);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `role`
 --
 
@@ -121,7 +164,9 @@ CREATE TABLE `sekolah` (
 --
 
 INSERT INTO `sekolah` (`id_sekolah`, `nama_sekolah`, `lokasi_sekolah`, `created_at`, `updated_at`) VALUES
-(2, 'SMA Negeri 12', 'Jambi Utara', '2018-02-28 13:59:51', '2018-02-28 13:59:51');
+(2, 'SMA Negeri 12', 'Jambi Utara', '2018-02-28 13:59:51', '2018-02-28 13:59:51'),
+(3, 'SMA Negeri 1', 'Jambi Selatan', '2018-02-28 23:03:04', '2018-02-28 23:03:04'),
+(4, 'SMA Negeri 3', 'Jambi Barat', '2018-02-28 23:03:15', '2018-02-28 23:03:15');
 
 -- --------------------------------------------------------
 
@@ -166,6 +211,12 @@ ALTER TABLE `pengguna`
   ADD KEY `id_role` (`id_role`);
 
 --
+-- Indexes for table `penilaian`
+--
+ALTER TABLE `penilaian`
+  ADD PRIMARY KEY (`id_nilai`);
+
+--
 -- Indexes for table `role`
 --
 ALTER TABLE `role`
@@ -192,7 +243,7 @@ ALTER TABLE `siswa`
 -- AUTO_INCREMENT for table `bobot`
 --
 ALTER TABLE `bobot`
-  MODIFY `id_bobot` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_bobot` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `kriteria`
@@ -207,6 +258,12 @@ ALTER TABLE `pengguna`
   MODIFY `id_pengguna` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `penilaian`
+--
+ALTER TABLE `penilaian`
+  MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
 -- AUTO_INCREMENT for table `role`
 --
 ALTER TABLE `role`
@@ -216,7 +273,7 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT for table `sekolah`
 --
 ALTER TABLE `sekolah`
-  MODIFY `id_sekolah` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_sekolah` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `siswa`
