@@ -6,6 +6,28 @@ class Admin_dinas extends MY_Controller {
 	public function __construct() {
 
 		parent::__construct();
+		$this->data['id_pengguna']	= $this->session->userdata( 'id_pengguna' );
+		if ( !isset( $this->data['id_pengguna'] ) ) {
+
+			$this->session->sess_destroy();
+			$this->flashmsg( 'Anda harus login terlebih dahulu', 'warning' );
+			redirect( 'login' );
+			exit;
+
+		}
+
+		$this->data['id_role']	= $this->session->userdata( 'id_role' );
+		if ( $this->data['id_role'] != 1 ) {
+
+			$this->session->sess_destroy();
+			$this->flashmsg( 'Anda harus login sebagai admin', 'warning' );
+			redirect( 'login' );
+			exit;
+
+		}
+
+		$this->load->model( 'pengguna_m' );
+		$this->data['pengguna']	= $this->pengguna_m->get_row([ 'id_pengguna' => $this->data['id_pengguna'] ]);
 
 	}
 
@@ -186,7 +208,13 @@ class Admin_dinas extends MY_Controller {
 
 			$this->data['sekolah']	= [
 				'nama_sekolah'		=> $this->POST( 'nama_sekolah' ),
-				'lokasi_sekolah'	=> $this->POST( 'lokasi_sekolah' )
+				'lokasi_sekolah'	=> $this->POST( 'lokasi_sekolah' ),
+				'npsn'				=> $this->POST( 'npsn' ),
+				'kabupaten'			=> $this->POST( 'kabupaten' ),
+				'desa'				=> $this->POST( 'desa' ),
+				'kelurahan'			=> $this->POST( 'kelurahan' ),
+				'kecamatan'			=> $this->POST( 'kecamatan' ),
+				'status'			=> $this->POST( 'status' )
 			];
 			$this->sekolah_m->insert( $this->data['sekolah'] );
 			$this->flashmsg( 'Data sekolah berhasil ditambahkan' );
@@ -214,7 +242,13 @@ class Admin_dinas extends MY_Controller {
 
 			$this->data['sekolah']	= [
 				'nama_sekolah'		=> $this->POST( 'nama_sekolah' ),
-				'lokasi_sekolah'	=> $this->POST( 'lokasi_sekolah' )
+				'lokasi_sekolah'	=> $this->POST( 'lokasi_sekolah' ),
+				'npsn'				=> $this->POST( 'npsn' ),
+				'kabupaten'			=> $this->POST( 'kabupaten' ),
+				'desa'				=> $this->POST( 'desa' ),
+				'kelurahan'			=> $this->POST( 'kelurahan' ),
+				'kecamatan'			=> $this->POST( 'kecamatan' ),
+				'status'			=> $this->POST( 'status' )
 			];
 			$this->sekolah_m->update( $this->data['id_sekolah'], $this->data['sekolah'] );
 			$this->flashmsg( 'Data sekolah berhasil disunting' );

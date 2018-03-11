@@ -16,12 +16,12 @@
                         <li>
                             <a href="<?= base_url( 'admin-dinas/data-penilaian' ) ?>" class="waves-effect"><i class="fa fa-edit m-r-10" aria-hidden="true"></i>Data Penilaian Sekolah</a>
                         </li>
-                        <li>
+                        <!-- <li>
                             <a href="<?= base_url( 'admin-dinas/data-kriteria' ) ?>" class="waves-effect"><i class="fa fa-table m-r-10" aria-hidden="true"></i>Data Kriteria</a>
                         </li>
                         <li>
                             <a href="<?= base_url( 'admin-dinas/data-bobot' ) ?>" class="waves-effect"><i class="fa fa-table m-r-10" aria-hidden="true"></i>Data Bobot</a>
-                        </li>
+                        </li> -->
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->

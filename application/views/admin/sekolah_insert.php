@@ -37,6 +37,48 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label class="col-md-12">NPSN</label>
+                                        <div class="col-md-12">
+                                            <input type="text" name="npsn" class="form-control form-control-line">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12">Kabupaten</label>
+                                        <div class="col-md-12">
+                                            <textarea class="form-control" rows="4" name="kabupaten"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12">Desa</label>
+                                        <div class="col-md-12">
+                                            <textarea class="form-control" rows="4" name="desa"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12">Kecamatan</label>
+                                        <div class="col-md-12">
+                                            <textarea class="form-control" rows="4" name="kecamatan"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12">Kelurahan</label>
+                                        <div class="col-md-12">
+                                            <textarea class="form-control" rows="4" name="kelurahan"></textarea>
+                                        </div>
+                                    </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="status" value="Negeri" checked>
+                                            <label class="form-check-label">
+                                                Negeri
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="status" value="Swasta">
+                                            <label class="form-check-label">
+                                                Swasta
+                                            </label>
+                                        </div>
+                                    <div class="form-group">
                                         <div class="col-sm-12">
                                         	<input type="submit" name="submit" value="Submit" class="btn btn-success">
                                         </div>

@@ -6,13 +6,8 @@ class Logout extends MY_Controller {
 
 		parent::__construct();
 
-		$redirect_to = 'login';
-		$this->data['role']	= $this->session->userdata( 'role' );
-		if ( $this->data['role'] == 'admin' ) {
-			$redirect_to .= '/admin';
-		}
 		$this->session->sess_destroy();
-		redirect( $redirect_to );
+		redirect( 'login' );
 		exit;
 
 	}

@@ -38,6 +38,48 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label class="col-md-12">NPSN</label>
+                                        <div class="col-md-12">
+                                            <input type="text" value="<?= $sekolah->npsn ?>" name="npsn" class="form-control form-control-line">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12">Kabupaten</label>
+                                        <div class="col-md-12">
+                                            <textarea value="<?= $sekolah->kabupaten ?>" class="form-control" rows="4" name="kabupaten"><?= $sekolah->kabupaten ?></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12">Desa</label>
+                                        <div class="col-md-12">
+                                            <textarea value="<?= $sekolah->desa ?>" class="form-control" rows="4" name="desa"><?= $sekolah->desa ?></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12">Kecamatan</label>
+                                        <div class="col-md-12">
+                                            <textarea value="<?= $sekolah->kecamatan ?>" class="form-control" rows="4" name="kecamatan"><?= $sekolah->kecamatan ?></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12">Kelurahan</label>
+                                        <div class="col-md-12">
+                                            <textarea value="<?= $sekolah->kelurahan ?>" class="form-control" rows="4" name="kelurahan"><?= $sekolah->kelurahan ?></textarea>
+                                        </div>
+                                    </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="status" value="Negeri" <?= $sekolah->status == 'Negeri' ? 'checked' : '' ?>>
+                                            <label class="form-check-label">
+                                                Negeri
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="status" value="Swasta" <?= $sekolah->status == 'Swasta' ? 'checked' : '' ?>>
+                                            <label class="form-check-label">
+                                                Swasta
+                                            </label>
+                                        </div>
+                                    <div class="form-group">
                                         <div class="col-sm-12">
                                         	<input type="submit" name="submit" value="Submit" class="btn btn-success">
                                         </div>

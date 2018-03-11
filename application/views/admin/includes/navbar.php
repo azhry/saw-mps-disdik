@@ -19,7 +19,7 @@
                         <!-- Logo text -->
                         <span>
                          <!-- dark Logo text -->
-                         <img src="<?= base_url( 'assets' ) ?>/assets/images/logo-text.png" alt="homepage" class="dark-logo" />
+                         SPK-MPS
                          </span> </a>
                 </div>
                 <!-- ============================================================== -->
@@ -33,9 +33,9 @@
                         <!-- This is  -->
                         <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
                         <li class="nav-item hidden-sm-down">
-                            <form class="app-search p-l-20">
+                            <!-- <form class="app-search p-l-20">
                                 <input type="text" class="form-control" placeholder="Search for..."> <a class="srh-btn"><i class="ti-search"></i></a>
-                            </form>
+                            </form> -->
                         </li>
                     </ul>
                     <!-- ============================================================== -->
@@ -43,7 +43,8 @@
                     <!-- ============================================================== -->
                     <ul class="navbar-nav my-lg-0">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="<?= base_url( 'assets' ) ?>/assets/images/users/1.jpg" alt="user" class="profile-pic m-r-5" />Markarn Doe</a>
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> <?= $pengguna->nama ?></a>
+                            <a href="<?= base_url( 'logout' ) ?>" onclick="window.location='<?= base_url( 'logout' ) ?>';" class="nav-link dropdown-toggle text-muted waves-effect waves-dark" data-toggle="dropdown">Logout</a>
                         </li>
                     </ul>
                 </div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 01, 2018 at 12:46 AM
+-- Generation Time: Mar 11, 2018 at 04:34 PM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.11
 
@@ -98,6 +98,13 @@ CREATE TABLE `pengguna` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `pengguna`
+--
+
+INSERT INTO `pengguna` (`id_pengguna`, `nip`, `password`, `id_role`, `nama`, `created_at`, `updated_at`) VALUES
+(1, '09021181419007', '985fabf8f96dc1c4c306341031569937', 1, 'Azhary Arliansyah', '2018-03-11 15:25:23', '2018-03-11 15:25:23');
+
 -- --------------------------------------------------------
 
 --
@@ -130,7 +137,12 @@ INSERT INTO `penilaian` (`id_nilai`, `id_sekolah`, `id_kriteria`, `id_bobot`) VA
 (12, 4, 2, 5),
 (13, 4, 3, 10),
 (14, 4, 4, 12),
-(15, 4, 6, 15);
+(15, 4, 6, 15),
+(16, 5, 1, 2),
+(17, 5, 2, 5),
+(18, 5, 3, 9),
+(19, 5, 4, 13),
+(20, 5, 6, 15);
 
 -- --------------------------------------------------------
 
@@ -145,6 +157,13 @@ CREATE TABLE `role` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `role`
+--
+
+INSERT INTO `role` (`id_role`, `role`, `created_at`, `updated_at`) VALUES
+(1, 'Admin', '2018-03-11 14:58:34', '2018-03-11 14:58:34');
+
 -- --------------------------------------------------------
 
 --
@@ -155,6 +174,12 @@ CREATE TABLE `sekolah` (
   `id_sekolah` int(11) NOT NULL,
   `nama_sekolah` varchar(300) NOT NULL,
   `lokasi_sekolah` text NOT NULL,
+  `npsn` varchar(20) NOT NULL,
+  `kabupaten` text NOT NULL,
+  `desa` text NOT NULL,
+  `kelurahan` text NOT NULL,
+  `kecamatan` text NOT NULL,
+  `status` enum('Negeri','Swasta') NOT NULL DEFAULT 'Negeri',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -163,10 +188,11 @@ CREATE TABLE `sekolah` (
 -- Dumping data for table `sekolah`
 --
 
-INSERT INTO `sekolah` (`id_sekolah`, `nama_sekolah`, `lokasi_sekolah`, `created_at`, `updated_at`) VALUES
-(2, 'SMA Negeri 12', 'Jambi Utara', '2018-02-28 13:59:51', '2018-02-28 13:59:51'),
-(3, 'SMA Negeri 1', 'Jambi Selatan', '2018-02-28 23:03:04', '2018-02-28 23:03:04'),
-(4, 'SMA Negeri 3', 'Jambi Barat', '2018-02-28 23:03:15', '2018-02-28 23:03:15');
+INSERT INTO `sekolah` (`id_sekolah`, `nama_sekolah`, `lokasi_sekolah`, `npsn`, `kabupaten`, `desa`, `kelurahan`, `kecamatan`, `status`, `created_at`, `updated_at`) VALUES
+(2, 'SMA Negeri 12', 'Jambi Utara', '1', '', '', '', '', 'Swasta', '2018-02-28 13:59:51', '2018-02-28 13:59:51'),
+(3, 'SMA Negeri 1', 'Jambi Selatan', '2', '', '', '', '', 'Negeri', '2018-02-28 23:03:04', '2018-02-28 23:03:04'),
+(4, 'SMA Negeri 3', 'Jambi Barat', '3', '', '', '', '', 'Negeri', '2018-02-28 23:03:15', '2018-02-28 23:03:15'),
+(5, 'SMA neger 3', 'Jl. Urip Sumoharoiucqcef\r\n', '4', '', '', '', '', 'Negeri', '2018-03-01 03:52:08', '2018-03-01 03:52:08');
 
 -- --------------------------------------------------------
 
@@ -255,25 +281,25 @@ ALTER TABLE `kriteria`
 -- AUTO_INCREMENT for table `pengguna`
 --
 ALTER TABLE `pengguna`
-  MODIFY `id_pengguna` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pengguna` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `penilaian`
 --
 ALTER TABLE `penilaian`
-  MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `role`
 --
 ALTER TABLE `role`
-  MODIFY `id_role` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `sekolah`
 --
 ALTER TABLE `sekolah`
-  MODIFY `id_sekolah` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_sekolah` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `siswa`
