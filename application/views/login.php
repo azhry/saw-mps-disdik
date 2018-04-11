@@ -45,7 +45,7 @@
                     <h3 class="box-title m-b-20">Sign In</h3>
                     <div class="form-group ">
                         <div class="col-xs-12">
-                            <input class="form-control" type="text" required="" name="nip" placeholder="NIP"> </div>
+                            <input class="form-control" type="text" required="" name="nip" placeholder="NIP/NIS"> </div>
                     </div>
                     <div class="form-group">
                         <div class="col-xs-12">

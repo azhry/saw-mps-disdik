@@ -16,6 +16,12 @@ class Login extends MY_Controller
 				case 1:
 					redirect( 'admin-dinas' );
 					break;
+				case 2:
+					redirect( 'kadin' );
+					break;
+				case 3:
+					redirect( 'siswa' );
+					break;
 
 			}
 

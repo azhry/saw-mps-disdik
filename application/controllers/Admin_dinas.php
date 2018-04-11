@@ -321,6 +321,35 @@ class Admin_dinas extends MY_Controller {
 
 	}
 
+	public function data_siswa() {
+
+		$this->load->model( 'siswa_m' );
+		if ( $this->GET( 'delete' ) && $this->GET( 'id_siswa' ) ) {
+
+			$this->siswa_m->delete( $this->GET( 'id_siswa' ) );
+			$this->flashmsg( 'Data siswa berhasil dihapus' );
+			redirect( 'admin-dinas/data-siswa' );
+			exit;
+
+		}
+
+		$this->data['siswa']	= $this->siswa_m->get();
+		$this->data['title']	= 'Data Sekolah';
+		$this->data['content']	= 'admin/siswa_data';
+		$this->template( $this->data );
+
+	}
+
+	public function insert_siswa() {
+
+
+	}
+
+	public function edit_siswa() {
+
+
+	}
+
 	public function monster_lite() {
 
 		redirect( base_url( 'assets/monster-lite' ) );
