@@ -52,6 +52,8 @@
                                         	<?php endforeach; ?>
                                         </tbody>
                                     </table>
+
+                                    <canvas id="grafik"></canvas>
                                 </div>
                             </div>
                         </div>
@@ -60,3 +62,42 @@
                 <!-- ============================================================== -->
                 <!-- End PAge Content -->
                 <!-- ============================================================== -->
+
+                <script type="text/javascript" src="<?= base_url( 'assets/assets/plugins/chartjs/Chart.min.js' ) ?>"></script>
+                <script type="text/javascript">
+                    var config = {
+                        type: 'line',
+                        data: {
+                            labels: [
+                                <?php foreach ( $sekolah as $row ): ?>
+                                    "<?= $row->nama_sekolah ?>",
+                                <?php endforeach; ?>
+                            ],
+                            datasets: [{
+                                label: 'Data Penilaian Sekolah',
+                                backgroundColor: 'rgb(255, 0, 0)',
+                                borderColor: 'rgb(255, 0, 0)',
+                                fill: false,
+                                data: [
+                                    <?php foreach ( $sekolah as $row ): ?>
+                                        <?= $row->nilai ?>,
+                                    <?php endforeach; ?>
+                                ]
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                yAxes: [{
+                                    display: true,
+                                    ticks: {
+                                        beginAtZero: true,
+                                        max: 1
+                                    }
+                                }]
+                            }
+                        }
+                    };
+                    var ctx = document.getElementById( 'grafik' ).getContext( '2d' );
+                    new Chart( ctx, config );
+                </script>
