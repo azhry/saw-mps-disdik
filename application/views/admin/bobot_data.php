@@ -5,7 +5,7 @@
                     <div class="col-md-6 col-8 align-self-center">
                         <h3 class="text-themecolor m-b-0 m-t-0">Data Bobot</h3>
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="<?= base_url( 'admin-dinas' ) ?>">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="<?= base_url( 'admin' ) ?>">Dashboard</a></li>
                             <li class="breadcrumb-item active">Data Bobot</li>
                         </ol>
                     </div>
@@ -23,7 +23,7 @@
                             <div class="card-block">
                                 <h4 class="card-title">Data Bobot</h4>
                                 <div class="card-subtitle">
-                                	<a href="<?= base_url( 'admin-dinas/insert-bobot' ) ?>" class="btn btn-success"><i class="fa fa-plus"></i></a>
+                                	<a href="<?= base_url( 'admin/insert-bobot' ) ?>" class="btn btn-success"><i class="fa fa-plus"></i></a>
                                 </div>
                                 <div class="table-responsive">
                                     <?= $this->session->flashdata( 'msg' ) ?>
@@ -45,8 +45,8 @@
                                                 <td><?= $row->nilai ?></td>
                                                 <td><?= $row->kriteria ?></td>
                                         		<td>
-                                        			<a href="<?= base_url( 'admin-dinas/edit-bobot/' . $row->id_bobot ) ?>" class="btn btn-primary"><i class="fa fa-edit"></i></a>
-                                        			<a href="<?= base_url( 'admin-dinas/data-bobot?delete=true&id_bobot=' . $row->id_bobot ) ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                        			<a href="<?= base_url( 'admin/edit-bobot/' . $row->id_bobot ) ?>" class="btn btn-primary"><i class="fa fa-edit"></i></a>
+                                        			<a href="<?= base_url( 'admin/data-bobot?delete=true&id_bobot=' . $row->id_bobot ) ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                                         		</td>
                                         	</tr>
                                         	<?php endforeach; ?>

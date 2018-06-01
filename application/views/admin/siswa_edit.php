@@ -3,11 +3,11 @@
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-6 col-8 align-self-center">
-                        <h3 class="text-themecolor m-b-0 m-t-0">Insert Sekolah</h3>
+                        <h3 class="text-themecolor m-b-0 m-t-0">Edit Siswa</h3>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="<?= base_url( 'admin' ) ?>">Home</a></li>
-                            <li class="breadcrumb-item"><a href="<?= base_url( 'admin/data-sekolah' ) ?>">Data Sekolah</a></li>
-                            <li class="breadcrumb-item active">Insert Sekolah</li>
+                            <li class="breadcrumb-item"><a href="<?= base_url( 'admin/data-siswa' ) ?>">Data Siswa</a></li>
+                            <li class="breadcrumb-item active">Edit Siswa</li>
                         </ol>
                     </div>
                 </div>
@@ -22,65 +22,50 @@
                     <!-- Column -->
                     <div class="col-lg-12 col-xlg-12 col-md-12">
                         <div class="card">
+                            <?= $this->session->flashdata('msg') ?>
                             <div class="card-block">
-                            	<?= form_open( 'admin/insert-sekolah', [ 'class' => 'form-horizontal form-material' ] ) ?>
+                            	<?= form_open( 'admin/edit-siswa/' . $id_siswa, [ 'class' => 'form-horizontal form-material' ] ) ?>
                                     <div class="form-group">
-                                        <label class="col-md-12">Nama Sekolah</label>
+                                        <label class="col-md-12">NIS</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="nama_sekolah" class="form-control form-control-line">
+                                            <input type="text" name="nis" value="<?= $siswa->nis ?>" class="form-control form-control-line">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-12">Lokasi Sekolah</label>
+                                        <label class="col-md-12">Nama</label>
                                         <div class="col-md-12">
-                                            <textarea class="form-control" rows="4" name="lokasi_sekolah"></textarea>
+                                            <input type="text" name="nama" value="<?= $siswa->nama ?>" class="form-control form-control-line">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-12">NPSN</label>
+                                        <label class="col-md-12">Jenis Kelamin</label>
+                                        <?= form_dropdown('jenis_kelamin', ['Laki-laki' => 'Laki-laki', 'Perempuan' => 'Perempuan'], $siswa->jenis_kelamin, [ 'class' => 'form-control' ]) ?>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12">Sekolah</label>
+                                        <?= form_dropdown('id_sekolah', $sekolah, $siswa->id_sekolah, [ 'class' => 'form-control' ]) ?>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12">Tempat Lahir</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="npsn" class="form-control form-control-line">
+                                            <input type="text" value="<?= $siswa->tempat_lahir ?>" name="tempat_lahir" class="form-control form-control-line">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-12">Kabupaten</label>
+                                        <label class="col-md-12">Tanggal Lahir</label>
                                         <div class="col-md-12">
-                                            <textarea class="form-control" rows="4" name="kabupaten"></textarea>
+                                            <input type="text" value="<?= $siswa->tanggal_lahir ?>" name="tanggal_lahir" placeholder="yyyy-mm-dd" class="form-control form-control-line">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-12">Desa</label>
+                                        <label class="col-md-12">Password</label>
                                         <div class="col-md-12">
-                                            <textarea class="form-control" rows="4" name="desa"></textarea>
+                                            <input type="password" name="password" class="form-control form-control-line">
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-md-12">Kecamatan</label>
-                                        <div class="col-md-12">
-                                            <textarea class="form-control" rows="4" name="kecamatan"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-12">Kelurahan</label>
-                                        <div class="col-md-12">
-                                            <textarea class="form-control" rows="4" name="kelurahan"></textarea>
-                                        </div>
-                                    </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="status" value="Negeri" checked>
-                                            <label class="form-check-label">
-                                                Negeri
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="status" value="Swasta">
-                                            <label class="form-check-label">
-                                                Swasta
-                                            </label>
-                                        </div>
                                     <div class="form-group">
                                         <div class="col-sm-12">
-                                        	<input type="submit" name="submit" value="Submit" class="btn btn-success">
+                                        	<input type="submit" name="edit" value="Edit" class="btn btn-success">
                                         </div>
                                     </div>
                                 <?= form_close() ?>

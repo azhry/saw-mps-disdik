@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 11, 2018 at 07:04 PM
+-- Generation Time: Jun 01, 2018 at 04:08 PM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.11
 
@@ -61,6 +61,33 @@ INSERT INTO `bobot` (`id_bobot`, `nama`, `nilai`, `id_kriteria`, `created_at`, `
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `komentar`
+--
+
+CREATE TABLE `komentar` (
+  `id_komentar` int(11) NOT NULL,
+  `id_pengguna` int(11) DEFAULT NULL,
+  `id_role` int(11) DEFAULT NULL,
+  `komentar` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `komentar`
+--
+
+INSERT INTO `komentar` (`id_komentar`, `id_pengguna`, `id_role`, `komentar`, `created_at`, `updated_at`) VALUES
+(1, NULL, NULL, 'Ini komentar publik', '2018-06-01 13:46:36', '2018-06-01 13:46:36'),
+(2, NULL, NULL, 'Ini komentar anonymous', '2018-06-01 13:48:16', '2018-06-01 13:48:16'),
+(3, 1, 3, 'Ini komentar siswa', '2018-06-01 13:51:38', '2018-06-01 13:51:38'),
+(4, 1, 3, 'Ini komentar siswa 2', '2018-06-01 13:55:00', '2018-06-01 13:55:00'),
+(5, 1, 1, 'Ini komentar admin', '2018-06-01 13:59:52', '2018-06-01 13:59:52'),
+(6, 2, 2, 'Ini komentar kepala dinas', '2018-06-01 14:08:07', '2018-06-01 14:08:07');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `kriteria`
 --
 
@@ -103,7 +130,8 @@ CREATE TABLE `pengguna` (
 --
 
 INSERT INTO `pengguna` (`id_pengguna`, `nip`, `password`, `id_role`, `nama`, `created_at`, `updated_at`) VALUES
-(1, '09021181419007', '985fabf8f96dc1c4c306341031569937', 1, 'Azhary Arliansyah', '2018-03-11 15:25:23', '2018-03-11 15:25:23');
+(1, '09021181419007', '985fabf8f96dc1c4c306341031569937', 1, 'Rizqi Adi Surya', '2018-06-01 11:38:12', '2018-03-11 15:25:23'),
+(2, '1212', '827ccb0eea8a706c4c34a16891f84e7b', 2, 'Surya Rizqi Adi', '2018-06-01 14:03:37', '2018-06-01 14:03:37');
 
 -- --------------------------------------------------------
 
@@ -220,7 +248,7 @@ CREATE TABLE `siswa` (
 --
 
 INSERT INTO `siswa` (`id_siswa`, `nis`, `password`, `nama`, `jenis_kelamin`, `id_sekolah`, `tempat_lahir`, `tanggal_lahir`, `created_at`, `updated_at`) VALUES
-(1, '12345', '827ccb0eea8a706c4c34a16891f84e7b', 'Azhary Arliansyah', 'Laki-laki', 3, 'Palembang', '1996-08-05', '2018-04-11 16:39:26', '2018-04-11 16:39:26');
+(1, '12345', '827ccb0eea8a706c4c34a16891f84e7b', 'Adi Surya Rizqi', 'Perempuan', 3, 'Palembang', '1996-08-05', '2018-04-11 16:39:26', '2018-04-11 16:39:26');
 
 --
 -- Indexes for dumped tables
@@ -232,6 +260,12 @@ INSERT INTO `siswa` (`id_siswa`, `nis`, `password`, `nama`, `jenis_kelamin`, `id
 ALTER TABLE `bobot`
   ADD PRIMARY KEY (`id_bobot`),
   ADD KEY `id_kriteria` (`id_kriteria`);
+
+--
+-- Indexes for table `komentar`
+--
+ALTER TABLE `komentar`
+  ADD PRIMARY KEY (`id_komentar`);
 
 --
 -- Indexes for table `kriteria`
@@ -250,7 +284,10 @@ ALTER TABLE `pengguna`
 -- Indexes for table `penilaian`
 --
 ALTER TABLE `penilaian`
-  ADD PRIMARY KEY (`id_nilai`);
+  ADD PRIMARY KEY (`id_nilai`),
+  ADD KEY `id_sekolah` (`id_sekolah`),
+  ADD KEY `id_kriteria` (`id_kriteria`),
+  ADD KEY `id_bobot` (`id_bobot`);
 
 --
 -- Indexes for table `role`
@@ -282,6 +319,12 @@ ALTER TABLE `bobot`
   MODIFY `id_bobot` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
+-- AUTO_INCREMENT for table `komentar`
+--
+ALTER TABLE `komentar`
+  MODIFY `id_komentar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `kriteria`
 --
 ALTER TABLE `kriteria`
@@ -291,7 +334,7 @@ ALTER TABLE `kriteria`
 -- AUTO_INCREMENT for table `pengguna`
 --
 ALTER TABLE `pengguna`
-  MODIFY `id_pengguna` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_pengguna` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `penilaian`
@@ -315,7 +358,7 @@ ALTER TABLE `sekolah`
 -- AUTO_INCREMENT for table `siswa`
 --
 ALTER TABLE `siswa`
-  MODIFY `id_siswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_siswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
@@ -332,6 +375,14 @@ ALTER TABLE `bobot`
 --
 ALTER TABLE `pengguna`
   ADD CONSTRAINT `pengguna_ibfk_1` FOREIGN KEY (`id_role`) REFERENCES `role` (`id_role`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `penilaian`
+--
+ALTER TABLE `penilaian`
+  ADD CONSTRAINT `penilaian_ibfk_1` FOREIGN KEY (`id_sekolah`) REFERENCES `sekolah` (`id_sekolah`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `penilaian_ibfk_2` FOREIGN KEY (`id_kriteria`) REFERENCES `kriteria` (`id_kriteria`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `penilaian_ibfk_3` FOREIGN KEY (`id_bobot`) REFERENCES `bobot` (`id_bobot`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `siswa`

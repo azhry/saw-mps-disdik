@@ -7,21 +7,15 @@
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
-                        <?php if ( isset( $pengguna ) ): ?>
                         <li>
                             <a href="<?= base_url( 'siswa' ) ?>" class="waves-effect"><i class="fa fa-clock-o m-r-10" aria-hidden="true"></i>Dashboard</a>
                         </li>
                         <li>
                             <a href="<?= base_url( 'siswa/data-sekolah' ) ?>" class="waves-effect"><i class="fa fa-columns m-r-10" aria-hidden="true"></i>Data Sekolah</a>
                         </li>
-                        <?php else: ?>
                         <li>
-                            <a href="<?= base_url( 'web' ) ?>" class="waves-effect"><i class="fa fa-clock-o m-r-10" aria-hidden="true"></i>Dashboard</a>
+                            <a href="<?= base_url( 'siswa/komentar' ) ?>" class="waves-effect"><i class="fa fa-comments m-r-10" aria-hidden="true"></i>Beri Komentar</a>
                         </li>
-                        <li>
-                            <a href="<?= base_url( 'web/data-sekolah' ) ?>" class="waves-effect"><i class="fa fa-columns m-r-10" aria-hidden="true"></i>Data Sekolah</a>
-                        </li>
-                        <?php endif; ?>
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->

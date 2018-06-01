@@ -16,8 +16,8 @@ class Admin extends MY_Controller {
 
 		}
 
-		$this->data['role']	= $this->session->userdata( 'role' );
-		if ( $this->data['role'] != 'admin' ) {
+		$this->data['id_role']	= $this->session->userdata( 'id_role' );
+		if ( $this->data['id_role'] != 1 ) {
 
 			$this->session->sess_destroy();
 			$this->flashmsg( 'Anda harus login sebagai admin', 'warning' );
@@ -27,519 +27,417 @@ class Admin extends MY_Controller {
 		}
 
 		$this->load->model( 'pengguna_m' );
-		$this->load->model( 'admin_m' );
-		$this->data['admin'] = $this->pengguna_m->get_admin( [ 'admin.id_pengguna' => $this->data['id_pengguna'] ] );
-		$this->data['admin']->lingkup = $this->admin_m->get_lingkup_admin( $this->data['admin']->nik );
-
-		$this->load->model( 'fakultas_m' );
-		$this->data['daftar_fakultas']		= $this->fakultas_m->get();
-
-		if ( $this->data['admin']->id_lingkup == 1 ) { // lingkup fakultas
-
-			$this->load->model( 'jurusan_m' );
-			$this->data['daftar_jurusan']	= $this->jurusan_m->get([ 'id_fakultas' => $this->data['admin']->lingkup['id_fakultas'] ]);
-
-		}
+		$this->data['pengguna']	= $this->pengguna_m->get_row([ 'id_pengguna' => $this->data['id_pengguna'] ]);
 
 	}
 
 	public function index() {
 
-		$this->data['title'] 	= 'Dashboard | ' . $this->title;
+		$this->data['title'] 	= 'Dashboard';
 		$this->data['content']	= 'admin/dashboard';
 		$this->template( $this->data );
-	
+
 	}
 
-	public function daftar_pertanyaan() {
+	public function data_kriteria() {
 
-		$this->load->model( 'pertanyaan_m' );
-		if ( $this->GET( 'delete', true ) ) {
+		$this->load->model( 'kriteria_m' );
+		if ( $this->GET( 'delete' ) && $this->GET( 'id_kriteria' ) ) {
 
-			$this->pertanyaan_m->delete( $this->GET( 'id_pertanyaan', true ) );
-			$this->flashmsg( 'Pertanyaan berhasil dihapus' );
-			redirect( 'admin/daftar-pertanyaan' );
+			$this->kriteria_m->delete( $this->GET( 'id_kriteria' ) );
+			$this->flashmsg( 'Data kriteria berhasil dihapus' );
+			redirect( 'admin/data-kriteria' );
 			exit;
 
 		}
 
-		$this->data['pertanyaan'] = [];
-
-		if ( $this->data['admin']->id_lingkup == 6 ) { // lingkup universitas
-
-			$this->data['pertanyaan']	= $this->pertanyaan_m->get_pertanyaan();
-
-		} else if ( $this->data['admin']->id_lingkup == 1 ) { // lingkup fakultas
-
-			$this->load->model( 'pertanyaan_fakultas_m' );
-			$this->data['pertanyaan']	= $this->pertanyaan_fakultas_m->get_list_pertanyaan( $this->data['admin']->lingkup['id_fakultas'] );
-
-		} else if ( $this->data['admin']->id_lingkup == 2 ) { // lingkup jurusan
-
-			$this->load->model( 'pertanyaan_jurusan_m' );
-			$this->data['pertanyaan']	= $this->pertanyaan_jurusan_m->get_list_pertanyaan( $this->data['admin']->lingkup['id_jurusan'] );
-
-		}
-		$this->data['title']		= 'Daftar Pertanyaan | ' . $this->title;
-		$this->data['content']		= 'admin/daftar_pertanyaan';
-		$this->data['page_script']	= 'admin/daftar_pertanyaan_script';
+		$this->data['kriteria']	= $this->kriteria_m->get();
+		$this->data['title']	= 'Data Kriteria Penilaian';
+		$this->data['content']	= 'admin/kriteria_data';
 		$this->template( $this->data );
 
 	}
 
-	public function buat_pertanyaan() {
+	public function insert_kriteria() {
 
-		$this->load->model( 'pertanyaan_m' );
-		$this->load->model( 'kategori_pertanyaan_m' );
-		$this->load->model( 'pilihan_jawaban_m' );
+		$this->load->model( 'kriteria_m' );
+		if ( $this->POST( 'submit' ) ) {
+
+			$this->data['kriteria']	= [
+				'kriteria'	=> $this->POST( 'kriteria' )
+			];
+			$this->kriteria_m->insert( $this->data['kriteria'] );
+			$this->flashmsg( 'Data kriteria berhasil ditambahkan' );
+			redirect( 'admin/data-kriteria' );
+			exit;
+
+		}
+
+		$this->data['title']	= 'Insert Kriteria Penilaian';
+		$this->data['content']	= 'admin/kriteria_insert';
+		$this->template( $this->data );
+
+	}
+
+	public function edit_kriteria() {
+
+		$this->data['id_kriteria']	= $this->uri->segment( 3 );
+		$this->check_allowance( !isset( $this->data['id_kriteria'] ) );
+
+		$this->load->model( 'kriteria_m' );
+		$this->data['kriteria']	= $this->kriteria_m->get_row([ 'id_kriteria' => $this->data['id_kriteria'] ]);
+		$this->check_allowance( !isset( $this->data['kriteria'] ), [ 'Data not found', 'danger' ] );
+		
+		if ( $this->POST( 'submit' ) ) {
+
+			$this->data['kriteria']	= [
+				'kriteria'	=> $this->POST( 'kriteria' )
+			];
+			$this->kriteria_m->update( $this->data['id_kriteria'], $this->data['kriteria'] );
+			$this->flashmsg( 'Data kriteria berhasil disunting' );
+			redirect( 'admin/edit-kriteria/' . $this->data['id_kriteria'] );
+			exit;
+
+		}
+
+		$this->data['title']	= 'Edit Kriteria Penilaian';
+		$this->data['content']	= 'admin/kriteria_edit';
+		$this->template( $this->data );
+
+	}
+
+	public function data_bobot() {
+
+		$this->load->model( 'bobot_m' );
+		if ( $this->GET( 'delete' ) && $this->GET( 'id_bobot' ) ) {
+
+			$this->bobot_m->delete( $this->GET( 'id_bobot' ) );
+			$this->flashmsg( 'Data bobot berhasil dihapus' );
+			redirect( 'admin/data-bobot' );
+			exit;
+
+		}
+
+		$this->data['bobot']	= $this->bobot_m->get_bobot();
+		$this->data['title']	= 'Data Bobot Penilaian';
+		$this->data['content']	= 'admin/bobot_data';
+		$this->template( $this->data );
+
+	}
+
+	public function insert_bobot() {
+
+		$this->load->model( 'bobot_m' );
+		$this->load->model( 'kriteria_m' );
+		if ( $this->POST( 'submit' ) ) {
+
+			$this->data['bobot']	= [
+				'nama'			=> $this->POST( 'nama' ),
+				'nilai'			=> $this->POST( 'nilai' ),
+				'id_kriteria'	=> $this->POST( 'id_kriteria' )
+			];
+			$this->bobot_m->insert( $this->data['bobot'] );
+			$this->flashmsg( 'Data bobot berhasil ditambahkan' );
+			redirect( 'admin/data-bobot' );
+			exit;
+
+		}
+
+		$this->data['kriteria']	= $this->kriteria_m->get();
+		$this->data['title']	= 'Insert Bobot Penilaian';
+		$this->data['content']	= 'admin/bobot_insert';
+		$this->template( $this->data );
+
+	}
+
+	public function edit_bobot() {
+
+		$this->data['id_bobot']	= $this->uri->segment( 3 );
+		$this->check_allowance( !isset( $this->data['id_bobot'] ) );
+
+		$this->load->model( 'bobot_m' );
+		$this->data['bobot']	= $this->bobot_m->get_row([ 'id_bobot' => $this->data['id_bobot'] ]);
+		$this->check_allowance( !isset( $this->data['bobot'] ), [ 'Data not found', 'danger' ] );
+		
+		$this->load->model( 'kriteria_m' );
 
 		if ( $this->POST( 'submit' ) ) {
 
-			if ( $this->pertanyaan_m->required_input([ 'pertanyaan', 'id_kategori', 'jawaban[]', 'skor[]' ]) ) {
-
-				$jawaban 	= $this->POST( 'jawaban' );
-				if ( count( $jawaban ) < 2 ) {
-
-					$this->flashmsg( 'Anda harus membuat lebih dari satu pilihan jawaban', 'danger' );
-					redirect( 'admin/buat-pertanyaan' );
-					exit;
-
-				}
-
-				$skor		= $this->POST( 'skor' );
-				$this->data['pertanyaan'] = [
-					'id_pertanyaan'		=> $this->generate_id(),
-					'id_kategori'		=> $this->POST( 'id_kategori' ),
-					'pertanyaan'		=> $this->POST( 'pertanyaan' ),
-					'id_lingkup'		=> $this->data['admin']->id_lingkup
-				];
-
-				$this->pertanyaan_m->insert( $this->data['pertanyaan'] );
-				$id_pertanyaan = $this->db->insert_id();
-
-				for ( $i = 0; $i < count( $jawaban ); $i++ ) {
-
-					if ( !empty( $jawaban[$i] ) && !empty( $skor[$i] ) ) {
-
-						$this->pilihan_jawaban_m->insert([
-							'id_pertanyaan'	=> $id_pertanyaan,
-							'jawaban'		=> $jawaban[$i],
-							'skor'			=> $skor[$i]
-						]);
-
-					}
-
-				}
-
-				if ( $this->data['admin']->lingkup != NULL ) {
-
-					if ( $this->data['admin']->lingkup['lingkup'] == 'Fakultas' ) {
-
-						$this->load->model( 'pertanyaan_fakultas_m' );
-						$this->pertanyaan_fakultas_m->insert([
-							'id_pertanyaan'	=> $id_pertanyaan,
-							'id_fakultas'	=> $this->data['admin']->lingkup['id_fakultas']
-						]);
-
-					} else if ( $this->data['admin']->lingkup['lingkup'] == 'Jurusan' ) {
-
-						$this->load->model( 'pertanyaan_jurusan_m' );
-						$this->pertanyaan_jurusan_m->insert([
-							'id_pertanyaan'	=> $id_pertanyaan,
-							'id_jurusan'	=> $this->data['admin']->lingkup['id_jurusan']
-						]);
-
-					}
-					
-				}
-				$this->flashmsg( 'Pertanyaan berhasil dibuat' );
-				redirect( 'admin/daftar-pertanyaan' );
-
-			} else {
-
-				$this->flashmsg( 'Data yang anda masukkan belum lengkap', 'danger' );
-				redirect( 'admin/buat-pertanyaan' );
-
-			}
+			$this->data['bobot']	= [
+				'nama'			=> $this->POST( 'nama' ),
+				'nilai'			=> $this->POST( 'nilai' ),
+				'id_kriteria'	=> $this->POST( 'id_kriteria' )
+			];
+			$this->bobot_m->update( $this->data['id_bobot'], $this->data['bobot'] );
+			$this->flashmsg( 'Data bobot berhasil disunting' );
+			redirect( 'admin/edit-bobot/' . $this->data['id_bobot'] );
 			exit;
 
 		}
 
-		$this->data['kategori']		= $this->kategori_pertanyaan_m->get();
-		$this->data['title']		= 'Buat Pertanyaan | ' . $this->title;
-		$this->data['content']		= 'admin/buat_pertanyaan';
-		$this->data['page_script']	= 'admin/buat_pertanyaan_script';
-		$this->template( $this->data );	
+		$this->data['kriteria']	= $this->kriteria_m->get();
+		$this->data['title']	= 'Edit Bobot Penilaian';
+		$this->data['content']	= 'admin/bobot_edit';
+		$this->template( $this->data );
 
 	}
 
-	public function sunting_pertanyaan() {
+	public function data_sekolah() {
 
-		$this->data['id_pertanyaan']	= $this->uri->segment( 3 );
-		if ( !isset( $this->data['id_pertanyaan'] ) ) {
+		$this->load->model( 'sekolah_m' );
+		if ( $this->GET( 'delete' ) && $this->GET( 'id_sekolah' ) ) {
 
-			$this->flashmsg( 'Required parameter is missing', 'danger' );
-			redirect( 'admin/daftar-pertanyaan' );
+			$this->sekolah_m->delete( $this->GET( 'id_sekolah' ) );
+			$this->flashmsg( 'Data sekolah berhasil dihapus' );
+			redirect( 'admin/data-sekolah' );
 			exit;
 
 		}
 
-		$this->load->model( 'pertanyaan_m' );
-		$this->load->model( 'kategori_pertanyaan_m' );
-		$this->load->model( 'pilihan_jawaban_m' );
-
-		$this->data['pertanyaan']	= $this->pertanyaan_m->get_row([ 'id_pertanyaan' => $this->data['id_pertanyaan'] ]);
-		if ( !isset( $this->data['id_pertanyaan'] ) ) {
-
-			$this->flashmsg( 'Data not found', 'danger' );
-			redirect( 'admin/daftar-pertanyaan' );
-			exit;
-
-		}
-
-		if ( $this->POST( 'edit' ) ) {
-
-			if ( $this->pertanyaan_m->required_input([ 'pertanyaan', 'id_kategori' ]) ) {
-
-				$jawaban 	= $this->POST( 'jawaban' );
-				if ( count( $jawaban ) < 2 ) {
-
-					$this->flashmsg( 'Anda harus membuat lebih dari satu pilihan jawaban', 'danger' );
-					redirect( 'admin/sunting-pertanyaan/' . $this->data['id_pertanyaan'] );
-					exit;
-
-				}
-
-				$skor		= $this->POST( 'skor' );
-				$this->data['pertanyaan'] = [
-					'id_kategori'		=> $this->POST( 'id_kategori' ),
-					'pertanyaan'		=> $this->POST( 'pertanyaan' ),
-					'id_lingkup'		=> $this->data['admin']->id_lingkup
-				];
-
-				$this->pertanyaan_m->update( $this->data['id_pertanyaan'], $this->data['pertanyaan'] );
-				$id_pertanyaan 	= $this->data['id_pertanyaan'];
-				$id_jawaban		= $this->POST( 'id_jawaban' );
-				for ( $i = 0; $i < count( $id_jawaban ); $i++ ) {
-
-					if ( !empty( $jawaban[$i] ) && !empty( $skor[$i] ) ) {
-
-						$this->pilihan_jawaban_m->update($id_jawaban[$i], [
-							'id_pertanyaan'	=> $id_pertanyaan,
-							'jawaban'		=> $jawaban[$i],
-							'skor'			=> $skor[$i]
-						]);
-
-					}
-
-				}
-
-				$deleted_id_jawaban = $this->POST( 'deleted_id_jawaban' );
-				foreach ( $deleted_id_jawaban as $id_jawaban ) {
-
-					$this->pilihan_jawaban_m->delete( $id_jawaban );
-
-				}
-
-				$jawaban_baru 	= $this->POST( 'jawaban_baru' );
-				$skor_baru		= $this->POST( 'skor_baru' );
-				for ( $i = 0; $i < count( $id_jawaban ); $i++ ) {
-
-					if ( !empty( $jawaban_baru[$i] ) && !empty( $skor_baru[$i] ) ) {
-
-						$this->pilihan_jawaban_m->insert([
-							'id_pertanyaan'	=> $id_pertanyaan,
-							'jawaban'		=> $jawaban_baru[$i],
-							'skor'			=> $skor_baru[$i]
-						]);
-
-					}
-
-				}
-				
-				$this->flashmsg( 'Pertanyaan berhasil disunting' );
-				redirect( 'admin/sunting-pertanyaan/' . $this->data['id_pertanyaan'] );
-
-			} else {
-
-				$this->flashmsg( 'Data yang anda masukkan belum lengkap', 'danger' );
-				redirect( 'admin/sunting-pertanyaan/' . $this->data['id_pertanyaan'] );
-
-			}
-			exit;
-
-		}
-
-		$this->load->model( 'kategori_pertanyaan_m' );
-		$this->load->model( 'pilihan_jawaban_m' );
-
-		$this->data['kategori']		= $this->kategori_pertanyaan_m->get();
-		$this->data['jawaban']		= $this->pilihan_jawaban_m->get([ 'id_pertanyaan' => $this->data['id_pertanyaan'] ]);
-		$this->data['title']		= 'Sunting Pertanyaan | ' . $this->title;
-		$this->data['content']		= 'admin/sunting_pertanyaan';
-		$this->data['page_script']	= 'admin/sunting_pertanyaan_script';
+		$this->data['sekolah']	= $this->sekolah_m->get();
+		$this->data['title']	= 'Data Sekolah';
+		$this->data['content']	= 'admin/sekolah_data';
 		$this->template( $this->data );
 
 	}
 
-	public function laporan_survei() {
+	public function insert_sekolah() {
 
-		$this->load->model( 'pertanyaan_m' );
-		$this->load->model( 'fakultas_m' );
-		$this->load->model( 'pertanyaan_fakultas_m' );
-		$this->load->model( 'jurusan_m' );
-		$this->load->model( 'kategori_pertanyaan_m' );
-
-		if ( $this->data['admin']->id_lingkup == 6 ) { // admin lingkup universitas
-
-			$this->data['fakultas'] = $this->fakultas_m->get();
-
-		}
-		//  else if ( $this->data['admin']->id_lingkup == 1 ) { // admin lingkup fakultas
-
-		// 	$this->data['jurusan']	= $this->jurusan_m->get();
-
-		// } else if ( $this->data['admin']->id_lingkup == 2 ) { // admin lingkup jurusan
-
-		// 	$this->data['jurusan']	= $this->jurusan_m->get_row([ 'id_jurusan' => $this->data['admin']->lingkup['id_jurusan'] ]);
-
-		// }
-
-		$this->data['kategori']		= $this->kategori_pertanyaan_m->get();
-		$this->data['title']		= 'Laporan Survei | ' . $this->title;
-		$this->data['content']		= 'admin/laporan_survei';
-		$this->data['page_script']	= 'admin/laporan_survei_script';
-		$this->template( $this->data );
-
-	}
-
-	public function laporan_fakultas() {
-
-		if ( $this->data['admin']->lingkup['lingkup'] == 'Fakultas' ) {
-
-			$this->data['id_fakultas']	= $this->data['admin']->lingkup['id_fakultas'];
-
-		} else {
-
-			$this->data['id_fakultas']	= $this->uri->segment( 3 );
-		
-		}
-		$this->check_allowance( !isset( $this->data['id_fakultas'] ) );
-
-		$this->data['fakultas']	= $this->fakultas_m->get_row([ 'id_fakultas' => $this->data['id_fakultas'] ]);
-		$this->check_allowance( !isset( $this->data['fakultas'] ), [ 'Data not found', 'danger' ] );
-
-		$this->load->model( 'pertanyaan_m' );
-		$this->load->model( 'fakultas_m' );
-		$this->load->model( 'pertanyaan_fakultas_m' );
-		$this->load->model( 'jurusan_m' );
-		$this->load->model( 'pertanyaan_jurusan_m' );
-		$this->load->model( 'kategori_pertanyaan_m' );
-
-		$this->data['jurusan']		= $this->jurusan_m->get([ 'id_fakultas' => $this->data['id_fakultas'] ]);
-		$this->data['kategori']		= $this->kategori_pertanyaan_m->get();
-		$this->data['title']		= 'Laporan Survei ' . $this->data['fakultas']->nama . ' | ' . $this->title;
-		$this->data['content']		= 'admin/laporan_fakultas';
-		$this->data['page_script']	= 'admin/laporan_fakultas_script';
-		$this->template( $this->data );
-
-	}
-
-	public function laporan_jurusan() {
-
-		if ( $this->data['admin']->lingkup['lingkup'] == 'Jurusan' ) {
-
-			$this->data['id_jurusan']	= $this->data['admin']->lingkup['id_jurusan'];
-
-		} else {
-
-			$this->data['id_jurusan']	= $this->uri->segment( 3 );
-		
-		}
-		$this->check_allowance( !isset( $this->data['id_jurusan'] ) );
-
-		$this->load->model( 'jurusan_m' );
-		$this->data['jurusan']	= $this->jurusan_m->get_row([ 'id_jurusan' => $this->data['id_jurusan'] ]);
-		$this->check_allowance( !isset( $this->data['jurusan'] ), [ 'Data not found', 'danger' ] );
-
-		$this->load->model( 'pertanyaan_m' );
-		$this->load->model( 'fakultas_m' );
-		$this->load->model( 'pertanyaan_fakultas_m' );
-		$this->load->model( 'jurusan_m' );
-		$this->load->model( 'pertanyaan_jurusan_m' );
-		$this->load->model( 'kategori_pertanyaan_m' );
-
-		$this->data['kategori']		= $this->kategori_pertanyaan_m->get();
-		$this->data['title']		= 'Laporan Survei ' . $this->data['jurusan']->nama . ' | ' . $this->title;
-		$this->data['content']		= 'admin/laporan_jurusan';
-		$this->data['page_script']	= 'admin/laporan_jurusan_script';
-		$this->template( $this->data );
-
-	}
-
-
-
-
-
-	public function daftar_survei() {
-
-		$this->load->model( 'survei_m' );
-		$this->data['daftar_survei']	= $this->survei_m->get_by_order( 'created_at', 'DESC' );
-		$this->data['title']			= 'Daftar Survei | ' . $this->title;
-		$this->data['content']			= 'admin/daftar_survei';
-		$this->data['page_script']		= 'admin/daftar_survei_script';
-		$this->template( $this->data );
-
-	}
-
-	public function tambah_survei() {
-
-		$this->load->model( 'survei_m' );
-		$this->load->model( 'jabatan_m' );
-		$this->load->model( 'fakultas_m' );
-		$this->load->model( 'jurusan_m' );
-
-		$this->_ajax_response_get_lingkup();
+		$this->load->model( 'sekolah_m' );
 		if ( $this->POST( 'submit' ) ) {
 
-			if ( !$this->survei_m->required_input( [ 'judul', 'deskripsi', 'mulai', 'selesai' ] ) ) {
-
-				$this->flashmsg( 'Required parameters are missing', 'danger' );
-				redirect( 'admin/tambah-survei' );
-				exit;
-
-			}
-
-			$this->load->model( 'lingkup_m' );
-			$this->load->model( 'lingkup_survei_m' );
-
-			$judul		= $this->POST( 'judul' );
-			$deskripsi	= $this->POST( 'deskripsi' );
-			$mulai		= $this->POST( 'mulai' );
-			$selesai	= $this->POST( 'selesai' );
-			$this->survei_m->insert( [
-				'id_survei'	=> $this->generate_id(),
-				'judul'		=> $judul,
-				'deskripsi'	=> $deskripsi,
-				'mulai'		=> $mulai,
-				'selesai'	=> $selesai
-			] );
-
-			$id_survei	= $this->db->insert_id();
-			$id_jabatan = $this->POST( 'jabatan' );
-			if ( count( $id_jabatan ) > 0 ) {
-
-				foreach ( $id_jabatan as $id ) {
-
-					$jabatan = $this->jabatan_m->get_row( [ 'id_jabatan' => $id ] );
-					if ( isset( $jabatan ) ) {
-
-						$lingkup = $this->lingkup_m->get_row( [ 'nama' => $jabatan->nama_jabatan ] );
-						if ( isset( $lingkup ) ) {
-
-							$this->lingkup_survei_m->insert( [
-								'id_survei'		=> $id_survei,
-								'id_lingkup'	=> $lingkup->id_lingkup,
-								'id'			=> $id
-							] );
-
-						}
-
-					}
-
-				}
-
-			}
-
-			$id_fakultas = $this->POST( 'fakultas' );
-			if ( count( $id_fakultas ) > 0 ) {
-
-				foreach ( $id_fakultas as $id ) {
-
-					$lingkup = $this->lingkup_m->get_row( [ 'nama' => 'Fakultas' ] );
-					if ( isset( $lingkup ) ) {
-
-						$this->lingkup_survei_m->insert( [
-							'id_survei'		=> $id_survei,
-							'id_lingkup'	=> $lingkup->id_lingkup,
-							'id'			=> $id
-						] );
-
-						$id_jurusan = $this->POST( 'jurusan_' . $id );
-						if ( count( $id_jurusan ) > 0 ) {
-
-							foreach ( $id_jurusan as $id_sub ) {
-
-								$lingkup = $this->lingkup_m->get_row( [ 'nama' => 'Jurusan' ] );
-								if ( isset( $lingkup ) ) {
-
-									$this->lingkup_survei_m->insert( [
-										'id_survei'		=> $id_survei,
-										'id_lingkup'	=> $lingkup->id_lingkup,
-										'id'			=> $id_sub
-									] );
-
-								}
-
-							}
-
-						}
-
-					}
-
-				}
-
-			}
-
-			redirect( 'admin/daftar-survei' );
+			$this->data['sekolah']	= [
+				'nama_sekolah'		=> $this->POST( 'nama_sekolah' ),
+				'lokasi_sekolah'	=> $this->POST( 'lokasi_sekolah' ),
+				'npsn'				=> $this->POST( 'npsn' ),
+				'kabupaten'			=> $this->POST( 'kabupaten' ),
+				'desa'				=> $this->POST( 'desa' ),
+				'kelurahan'			=> $this->POST( 'kelurahan' ),
+				'kecamatan'			=> $this->POST( 'kecamatan' ),
+				'status'			=> $this->POST( 'status' )
+			];
+			$this->sekolah_m->insert( $this->data['sekolah'] );
+			$this->flashmsg( 'Data sekolah berhasil ditambahkan' );
+			redirect( 'admin/data-sekolah' );
 			exit;
 
 		}
 
-		$this->data['jabatan']		= $this->jabatan_m->get();
-		$this->data['fakultas']		= $this->fakultas_m->get();
-		$this->data['jurusan']		= $this->jurusan_m->get();
-		$this->data['title']		= 'Tambah Survei | ' . $this->title;
-		$this->data['content']		= 'admin/tambah_survei';
-		$this->data['page_script']	= 'admin/tambah_survei_script';
+		$this->data['title']	= 'Insert Sekolah';
+		$this->data['content']	= 'admin/sekolah_insert';
 		$this->template( $this->data );
 
 	}
 
-	private function _ajax_response_get_lingkup() {
+	public function edit_sekolah() {
 
-		$ajax_action = $this->POST( 'action_name' );
+		$this->data['id_sekolah']	= $this->uri->segment( 3 );
+		$this->check_allowance( !isset( $this->data['id_sekolah'] ) );
 
-		if ( isset( $ajax_action ) && $ajax_action == 'get_lingkup' ) {
+		$this->load->model( 'sekolah_m' );
+		$this->data['sekolah']	= $this->sekolah_m->get_row([ 'id_sekolah' => $this->data['id_sekolah'] ]);
+		$this->check_allowance( !isset( $this->data['sekolah'] ), [ 'Data not found', 'danger' ] );
+		
+		if ( $this->POST( 'submit' ) ) {
 
-			$this->load->model( 'jurusan_m' );
-
-			$html = '';
-			$IDs = $this->POST( 'id' );
-			if ( isset( $IDs['fakultas'] ) && count( $IDs['fakultas'] ) > 0 ) {
-
-				foreach ( $IDs['fakultas'] as $id_fakultas ) {
-
-					$jurusan = $this->jurusan_m->get( [ 'id_fakultas' => $id_fakultas ] );
-					foreach ( $jurusan as $row ) {
-
-						$html .= '<div class="i-checks">
-							<label>
-								<input type="checkbox" name="jurusan_' . $id_fakultas . '[]" value="' . $row->id_jurusan . '"><i></i>
-								' . $row->nama . '
-							</label>
-						</div>';
-
-					}
-
-				}
-
-			}
-
-			echo $html;
+			$this->data['sekolah']	= [
+				'nama_sekolah'		=> $this->POST( 'nama_sekolah' ),
+				'lokasi_sekolah'	=> $this->POST( 'lokasi_sekolah' ),
+				'npsn'				=> $this->POST( 'npsn' ),
+				'kabupaten'			=> $this->POST( 'kabupaten' ),
+				'desa'				=> $this->POST( 'desa' ),
+				'kelurahan'			=> $this->POST( 'kelurahan' ),
+				'kecamatan'			=> $this->POST( 'kecamatan' ),
+				'status'			=> $this->POST( 'status' )
+			];
+			$this->sekolah_m->update( $this->data['id_sekolah'], $this->data['sekolah'] );
+			$this->flashmsg( 'Data sekolah berhasil disunting' );
+			redirect( 'admin/edit-sekolah/' . $this->data['id_sekolah'] );
 			exit;
 
 		}
+
+		$this->data['title']	= 'Edit Sekolah';
+		$this->data['content']	= 'admin/sekolah_edit';
+		$this->template( $this->data );
+
+	}
+
+	public function data_penilaian() {
+
+		$this->load->model( 'sekolah_m' );
+		$this->load->model( 'saw_m' );
+
+		$this->data['sekolah'] = $this->sekolah_m->get();
+		$nilai = [];
+		for ( $i = 0; $i < count( $this->data['sekolah'] ); $i++ ) {
+
+			$this->data['sekolah'][$i]->nilai = $this->saw_m->get_result( $this->data['sekolah'][$i]->id_sekolah );
+			$nilai[$this->data['sekolah'][$i]->id_sekolah] = $this->data['sekolah'][$i]->nilai;
+
+		}
+
+		array_multisort( $nilai, SORT_DESC, $this->data['sekolah'] );
+		$this->data['title']	= 'Data Penilaian Sekolah';
+		$this->data['content']	= 'admin/penilaian_data';
+		$this->template( $this->data );
+
+	}
+
+	public function insert_penilaian() {
+
+		$this->load->model( 'kriteria_m' );
+		$this->load->model( 'bobot_m' );
+		$this->load->model( 'saw_m' );
+		$this->load->model( 'sekolah_m' );
+
+		if ( $this->POST( 'submit' ) ) {
+
+			$id_kriteria 	= $this->POST( 'id_kriteria' );
+			$id_bobot 		= $this->POST( 'id_bobot' );
+			for ( $i = 0; $i < count( $id_kriteria ); $i++ ) {
+
+				$this->data['penilaian'] = [
+					'id_sekolah'	=> $this->POST( 'id_sekolah' ),
+					'id_kriteria'	=> $id_kriteria[$i],
+					'id_bobot'		=> $id_bobot[$i]
+				];
+				$this->saw_m->insert( $this->data['penilaian'] );
+
+			}
+
+		}
+
+		$this->data['sekolah']	= $this->sekolah_m->get();
+		$this->data['kriteria']	= $this->kriteria_m->get();
+		$this->data['title']	= 'Beri Nilai Sekolah';
+		$this->data['content']	= 'admin/penilaian_insert';
+		$this->template( $this->data );
+
+	}
+
+	public function edit_penilaian() 
+	{
+
+
+	}
+
+	public function data_siswa() 
+	{
+
+		$this->load->model( 'siswa_m' );
+		if ( $this->GET( 'delete' ) && $this->GET( 'id_siswa' ) ) 
+		{
+
+			$this->siswa_m->delete( $this->GET( 'id_siswa' ) );
+			$this->flashmsg( 'Data siswa berhasil dihapus' );
+			redirect( 'admin/data-siswa' );
+			exit;
+
+		}
+
+		$this->data['siswa']	= $this->siswa_m->get_siswa();
+		$this->data['title']	= 'Data Sekolah';
+		$this->data['content']	= 'admin/siswa_data';
+		$this->template( $this->data );
+
+	}
+
+	public function insert_siswa() 
+	{
+		$this->load->model('siswa_m');
+		$this->load->model('sekolah_m');
+
+		if ($this->POST('submit'))
+		{
+			$this->data['siswa'] = [
+				'nis'			=> $this->POST('nis'),
+				'nama'			=> $this->POST('nama'),
+				'jenis_kelamin'	=> $this->POST('jenis_kelamin'),
+				'id_sekolah'	=> $this->POST('id_sekolah'),
+				'tempat_lahir'	=> $this->POST('tempat_lahir'),
+				'tanggal_lahir'	=> $this->POST('tanggal_lahir'),
+				'password'		=> md5($this->POST('password'))
+			];
+
+			$this->siswa_m->insert($this->data['siswa']);
+			$this->flashmsg('Data siswa berhasil dimasukkan');
+			redirect('admin/data-siswa');
+			exit;
+		}
+
+		$this->data['sekolah']	= $this->sekolah_m->get();
+		$this->data['title']	= 'Insert Siswa';
+		$this->data['content']	= 'admin/siswa_insert';
+		$this->template($this->data);
+	}
+
+	public function edit_siswa() 
+	{
+		$this->data['id_siswa']	= $this->uri->segment( 3 );
+		$this->check_allowance( !isset( $this->data['id_siswa'] ) );
+
+		$this->load->model( 'siswa_m' );
+		$this->data['siswa']	= $this->siswa_m->get_row([ 'id_siswa' => $this->data['id_siswa'] ]);
+		$this->check_allowance( !isset( $this->data['siswa'] ), [ 'Data not found', 'danger' ] );
+
+		$this->load->model('sekolah_m');
+		$this->data['sekolah'] = array_map(function($sekolah) {
+			return [ $sekolah->id_sekolah => $sekolah->nama_sekolah ];
+		}, $this->sekolah_m->get());
+		
+		if ( $this->POST( 'edit' ) ) 
+		{
+			$this->data['siswa'] = [
+				'nis'			=> $this->POST('nis'),
+				'nama'			=> $this->POST('nama'),
+				'jenis_kelamin'	=> $this->POST('jenis_kelamin'),
+				'id_sekolah'	=> $this->POST('id_sekolah'),
+				'tempat_lahir'	=> $this->POST('tempat_lahir'),
+				'tanggal_lahir'	=> $this->POST('tanggal_lahir'),
+			];
+			$password = $this->POST('password');
+			if (!empty($password)) $this->data['siswa']['password'] = md5($password);
+			$this->siswa_m->update( $this->data['id_siswa'], $this->data['siswa'] );
+			$this->flashmsg( 'Data siswa berhasil disunting' );
+			redirect( 'admin/edit-siswa/' . $this->data['id_siswa'] );
+			exit;
+		}
+
+		$this->data['title']	= 'Edit Siswa';
+		$this->data['content']	= 'admin/siswa_edit';
+		$this->template( $this->data );
+	}
+
+	public function komentar() 
+	{
+		$this->load->model('komentar_m');
+		if ($this->POST('submit'))
+		{
+			$this->data['komentar'] = [ 'komentar' => $this->POST('komentar') ];
+			$this->data['id_pengguna'] = $this->session->userdata('id_pengguna');
+			if (isset($this->data['id_pengguna']))
+			{
+				$this->data['komentar']['id_pengguna'] 	= $this->session->userdata('id_pengguna');
+				$this->data['komentar']['id_role']		= $this->session->userdata('id_role');
+			}
+			$this->komentar_m->insert($this->data['komentar']);
+			$this->flashmsg('Komentar berhasil dimasukkan');
+			redirect('admin/komentar');
+			exit;
+		}
+
+		$this->load->model('pengguna_m');
+		$this->load->model('siswa_m');
+		$this->data['komentar'] = $this->komentar_m->get_by_order('created_at', 'DESC');
+		$this->data['title']	= 'Beri Komentar';
+		$this->data['content']	= 'admin/komentar';
+		$this->template($this->data, 'admin');
+	}
+
+	public function monster_lite() {
+
+		redirect( base_url( 'assets/monster-lite' ) );
 
 	}
 

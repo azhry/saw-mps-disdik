@@ -5,8 +5,8 @@
                     <div class="col-md-6 col-8 align-self-center">
                         <h3 class="text-themecolor m-b-0 m-t-0">Edit Kriteria</h3>
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="<?= base_url( 'admin-dinas' ) ?>">Home</a></li>
-                            <li class="breadcrumb-item"><a href="<?= base_url( 'admin-dinas/data-kriteria' ) ?>">Data Kriteria</a></li>
+                            <li class="breadcrumb-item"><a href="<?= base_url( 'admin' ) ?>">Home</a></li>
+                            <li class="breadcrumb-item"><a href="<?= base_url( 'admin/data-kriteria' ) ?>">Data Kriteria</a></li>
                             <li class="breadcrumb-item active">Edit Kriteria</li>
                         </ol>
                     </div>
@@ -24,7 +24,7 @@
                         <div class="card">
                             <div class="card-block">
                                 <?= $this->session->flashdata( 'msg' ) ?>
-                            	<?= form_open( 'admin-dinas/edit-kriteria/' . $id_kriteria, [ 'class' => 'form-horizontal form-material' ] ) ?>
+                            	<?= form_open( 'admin/edit-kriteria/' . $id_kriteria, [ 'class' => 'form-horizontal form-material' ] ) ?>
                                     <div class="form-group">
                                         <label class="col-md-12">Nama Kriteria</label>
                                         <div class="col-md-12">

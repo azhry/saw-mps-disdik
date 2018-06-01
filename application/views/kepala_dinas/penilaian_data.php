@@ -22,9 +22,6 @@
                         <div class="card">
                             <div class="card-block">
                                 <h4 class="card-title">Data Penilaian Sekolah</h4>
-                                <div class="card-subtitle">
-                                	<a href="<?= base_url( 'admin/insert-penilaian' ) ?>" class="btn btn-success"><i class="fa fa-plus"></i></a>
-                                </div>
                                 <div class="table-responsive">
                                     <?= $this->session->flashdata( 'msg' ) ?>
                                     <table class="table">

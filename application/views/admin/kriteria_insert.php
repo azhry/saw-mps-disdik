@@ -5,8 +5,8 @@
                     <div class="col-md-6 col-8 align-self-center">
                         <h3 class="text-themecolor m-b-0 m-t-0">Insert Kriteria</h3>
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="<?= base_url( 'admin-dinas' ) ?>">Home</a></li>
-                            <li class="breadcrumb-item"><a href="<?= base_url( 'admin-dinas/data-kriteria' ) ?>">Data Kriteria</a></li>
+                            <li class="breadcrumb-item"><a href="<?= base_url( 'admin' ) ?>">Home</a></li>
+                            <li class="breadcrumb-item"><a href="<?= base_url( 'admin/data-kriteria' ) ?>">Data Kriteria</a></li>
                             <li class="breadcrumb-item active">Insert Kriteria</li>
                         </ol>
                     </div>
@@ -23,7 +23,7 @@
                     <div class="col-lg-12 col-xlg-12 col-md-12">
                         <div class="card">
                             <div class="card-block">
-                            	<?= form_open( 'admin-dinas/insert-kriteria', [ 'class' => 'form-horizontal form-material' ] ) ?>
+                            	<?= form_open( 'admin/insert-kriteria', [ 'class' => 'form-horizontal form-material' ] ) ?>
                                     <div class="form-group">
                                         <label class="col-md-12">Nama Kriteria</label>
                                         <div class="col-md-12">
