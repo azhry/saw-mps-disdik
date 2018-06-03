@@ -14,6 +14,9 @@
                             <a href="<?= base_url( 'siswa/data-sekolah' ) ?>" class="waves-effect"><i class="fa fa-columns m-r-10" aria-hidden="true"></i>Data Sekolah</a>
                         </li>
                         <li>
+                            <a href="<?= base_url( 'siswa/data-penilaian' ) ?>" class="waves-effect"><i class="fa fa-edit m-r-10" aria-hidden="true"></i>Data Penilaian Sekolah</a>
+                        </li>
+                        <li>
                             <a href="<?= base_url( 'siswa/komentar' ) ?>" class="waves-effect"><i class="fa fa-comments m-r-10" aria-hidden="true"></i>Beri Komentar</a>
                         </li>
                     </ul>

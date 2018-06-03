@@ -19,7 +19,7 @@
                         <!-- Logo text -->
                         <span>
                          <!-- dark Logo text -->
-                         SPK-MPS
+                         Dinas Pendidikan
                          </span> </a>
                 </div>
                 <!-- ============================================================== -->

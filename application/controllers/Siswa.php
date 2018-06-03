@@ -75,4 +75,25 @@ class Siswa extends MY_Controller {
 		$this->template($this->data, 'siswa');
 	}
 
+	public function data_penilaian() {
+
+		$this->load->model( 'sekolah_m' );
+		$this->load->model( 'saw_m' );
+
+		$this->data['sekolah'] = $this->sekolah_m->get();
+		$nilai = [];
+		for ( $i = 0; $i < count( $this->data['sekolah'] ); $i++ ) {
+
+			$this->data['sekolah'][$i]->nilai = $this->saw_m->get_result( $this->data['sekolah'][$i]->id_sekolah );
+			$nilai[$this->data['sekolah'][$i]->id_sekolah] = $this->data['sekolah'][$i]->nilai;
+
+		}
+
+		array_multisort( $nilai, SORT_DESC, $this->data['sekolah'] );
+		$this->data['title']	= 'Data Penilaian Sekolah';
+		$this->data['content']	= 'siswa/penilaian_data';
+		$this->template( $this->data, 'siswa' );
+
+	}
+
 }
