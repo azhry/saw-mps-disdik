@@ -19,7 +19,18 @@
                 <div class="row">
                     <div class="col-md-12">
                         <?= form_open('web/komentar') ?>
-                        <textarea rows="5" class="form-control" name="komentar" placeholder="Komentar anda"></textarea>
+                        <?php  
+                            $id_pengguna = $this->session->userdata('id_pengguna');
+                            if (!isset($id_pengguna)):
+                        ?>
+                        <div class="form-group">
+                            <input type="text" name="nama" class="form-control" required placeholder="Nama">
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="email" class="form-control" required placeholder="Email">
+                        </div>
+                        <?php endif; ?>
+                        <textarea rows="5" required class="form-control" name="komentar" placeholder="Komentar anda"></textarea>
                         <input type="submit" class="btn btn-primary" value="Submit" name="submit">
                         <?= form_close() ?>
                     </div>
@@ -28,25 +39,25 @@
                 <?php foreach ($komentar as $row): ?>
                 <div class="row">
                     <!-- column -->
-                    <div class="<?= in_array($row->id_role, [1, 2]) ? 'md-offset-4' : '' ?> col-sm-8">
+                    <div class="<?= in_array($row->id_role, [1, 2]) ? 'offset-md-4' : '' ?> col-sm-8">
                         <div class="card">
                             <div class="card-block">
                                 <h6 class="card-title">
-                                    <p class="pull-left">
+                                    <p class="pull-left <?= in_array($row->id_role, [1, 2]) ? 'text-danger' : '' ?>">
                                         <?php 
                                             if (in_array($row->id_role, [1, 2])) 
                                             {
                                                 $pengguna = $this->pengguna_m->get_row(['id_pengguna' => $row->id_pengguna]);
-                                                echo !empty($pengguna->nama) ?: 'Anonymous'; 
+                                                echo !empty($pengguna->nama) ? $pengguna->nama : 'Anonymous'; 
                                             }
                                             elseif ($row->id_role == 3)
                                             {
                                                 $siswa = $this->siswa_m->get_row(['id_siswa' => $row->id_pengguna]);
-                                                echo !empty($siswa->nama) ?: 'Anonymous';
+                                                echo !empty($siswa->nama) ? $siswa->nama : 'Anonymous';
                                             }
                                             else
                                             {
-                                                echo 'Anonymous';
+                                                echo $row->nama;
                                             }
                                         ?>
                                     </p>

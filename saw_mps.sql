@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 01, 2018 at 04:08 PM
+-- Generation Time: Jun 05, 2018 at 03:41 PM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.11
 
@@ -68,6 +68,8 @@ CREATE TABLE `komentar` (
   `id_komentar` int(11) NOT NULL,
   `id_pengguna` int(11) DEFAULT NULL,
   `id_role` int(11) DEFAULT NULL,
+  `nama` varchar(100) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
   `komentar` text NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -77,13 +79,15 @@ CREATE TABLE `komentar` (
 -- Dumping data for table `komentar`
 --
 
-INSERT INTO `komentar` (`id_komentar`, `id_pengguna`, `id_role`, `komentar`, `created_at`, `updated_at`) VALUES
-(1, NULL, NULL, 'Ini komentar publik', '2018-06-01 13:46:36', '2018-06-01 13:46:36'),
-(2, NULL, NULL, 'Ini komentar anonymous', '2018-06-01 13:48:16', '2018-06-01 13:48:16'),
-(3, 1, 3, 'Ini komentar siswa', '2018-06-01 13:51:38', '2018-06-01 13:51:38'),
-(4, 1, 3, 'Ini komentar siswa 2', '2018-06-01 13:55:00', '2018-06-01 13:55:00'),
-(5, 1, 1, 'Ini komentar admin', '2018-06-01 13:59:52', '2018-06-01 13:59:52'),
-(6, 2, 2, 'Ini komentar kepala dinas', '2018-06-01 14:08:07', '2018-06-01 14:08:07');
+INSERT INTO `komentar` (`id_komentar`, `id_pengguna`, `id_role`, `nama`, `email`, `komentar`, `created_at`, `updated_at`) VALUES
+(1, NULL, NULL, 'Azhary', 'azhary@gmail.com', 'Ini komentar publik', '2018-06-01 13:46:36', '2018-06-01 13:46:36'),
+(2, NULL, NULL, 'Arliansyah', 'arliansyah@gmail.com', 'Ini komentar anonymous', '2018-06-01 13:48:16', '2018-06-01 13:48:16'),
+(3, 1, 3, NULL, NULL, 'Ini komentar siswa', '2018-06-01 13:51:38', '2018-06-01 13:51:38'),
+(4, 1, 3, NULL, NULL, 'Ini komentar siswa 2', '2018-06-01 13:55:00', '2018-06-01 13:55:00'),
+(5, 1, 1, NULL, NULL, 'Ini komentar admin', '2018-06-01 13:59:52', '2018-06-01 13:59:52'),
+(6, 2, 2, NULL, NULL, 'Ini komentar kepala dinas', '2018-06-01 14:08:07', '2018-06-01 14:08:07'),
+(7, NULL, NULL, 'namasaya', 'email@saya.com', 'komentarsaya', '2018-06-05 13:39:55', '2018-06-05 13:39:55'),
+(8, 1, 1, NULL, NULL, 'test', '2018-06-05 13:40:24', '2018-06-05 13:40:24');
 
 -- --------------------------------------------------------
 
@@ -322,7 +326,7 @@ ALTER TABLE `bobot`
 -- AUTO_INCREMENT for table `komentar`
 --
 ALTER TABLE `komentar`
-  MODIFY `id_komentar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_komentar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `kriteria`
@@ -358,7 +362,7 @@ ALTER TABLE `sekolah`
 -- AUTO_INCREMENT for table `siswa`
 --
 ALTER TABLE `siswa`
-  MODIFY `id_siswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_siswa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables

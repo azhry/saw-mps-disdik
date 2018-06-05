@@ -28,11 +28,11 @@
                 <?php foreach ($komentar as $row): ?>
                 <div class="row">
                     <!-- column -->
-                    <div class="<?= in_array($row->id_role, [1, 2]) ? 'md-offset-4' : '' ?> col-sm-8">
+                    <div class="<?= in_array($row->id_role, [1, 2]) ? 'offset-md-4' : '' ?> col-sm-8">
                         <div class="card">
                             <div class="card-block">
                                 <h6 class="card-title">
-                                    <p class="pull-left">
+                                    <p class="pull-left <?= in_array($row->id_role, [1, 2]) ? 'text-danger' : '' ?>">
                                         <?php 
                                             if (in_array($row->id_role, [1, 2])) 
                                             {

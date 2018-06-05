@@ -39,6 +39,11 @@ class Web extends MY_Controller {
 				$this->data['komentar']['id_pengguna'] 	= $this->session->userdata('id_pengguna');
 				$this->data['komentar']['id_role']		= $this->session->userdata('id_role');
 			}
+			else
+			{
+				$this->data['komentar']['nama']		= $this->POST('nama');
+				$this->data['komentar']['email']	= $this->POST('email');
+			}
 			$this->komentar_m->insert($this->data['komentar']);
 			$this->flashmsg('Komentar berhasil dimasukkan');
 			redirect('web/komentar');
