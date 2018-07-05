@@ -7,15 +7,15 @@
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
-                        <li>
+                        <!-- <li>
                             <a href="<?= base_url( 'kepala-dinas' ) ?>" class="waves-effect"><i class="fa fa-clock-o m-r-10" aria-hidden="true"></i>Dashboard</a>
-                        </li>
+                        </li> -->
                         <li>
                             <a href="<?= base_url( 'kepala-dinas/data-penilaian' ) ?>" class="waves-effect"><i class="fa fa-edit m-r-10" aria-hidden="true"></i>Data Penilaian Sekolah</a>
                         </li>
-                        <li>
+                        <!-- <li>
                             <a href="<?= base_url( 'kepala-dinas/komentar' ) ?>" class="waves-effect"><i class="fa fa-comments m-r-10" aria-hidden="true"></i>Beri Komentar</a>
-                        </li>
+                        </li> -->
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->

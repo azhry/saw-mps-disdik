@@ -6,7 +6,7 @@ class Web extends MY_Controller {
 	public function __construct() {
 
 		parent::__construct();
-
+		redirect('login');
 	}
 
 	public function index() {

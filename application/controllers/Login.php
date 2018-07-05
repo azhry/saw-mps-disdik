@@ -14,13 +14,16 @@ class Login extends MY_Controller
 			switch ( $this->data['id_role'] ) {
 
 				case 1:
-					redirect( 'admin' );
+					redirect('admin/data-sekolah');
 					break;
 				case 2:
-					redirect( 'kepala-dinas' );
+					redirect('kepala-dinas/data-penilaian');
 					break;
 				case 3:
-					redirect( 'siswa' );
+					redirect('siswa/data-sekolah');
+					break;
+				case 4:
+					redirect('assessor/data-penilaian');
 					break;
 
 			}

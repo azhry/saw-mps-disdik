@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 05, 2018 at 03:41 PM
+-- Generation Time: Jul 05, 2018 at 12:43 PM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.11
 
@@ -135,7 +135,8 @@ CREATE TABLE `pengguna` (
 
 INSERT INTO `pengguna` (`id_pengguna`, `nip`, `password`, `id_role`, `nama`, `created_at`, `updated_at`) VALUES
 (1, '09021181419007', '985fabf8f96dc1c4c306341031569937', 1, 'Rizqi Adi Surya', '2018-06-01 11:38:12', '2018-03-11 15:25:23'),
-(2, '1212', '827ccb0eea8a706c4c34a16891f84e7b', 2, 'Surya Rizqi Adi', '2018-06-01 14:03:37', '2018-06-01 14:03:37');
+(2, '1212', '827ccb0eea8a706c4c34a16891f84e7b', 2, 'Surya Rizqi Adi', '2018-06-01 14:03:37', '2018-06-01 14:03:37'),
+(3, '12345', '985fabf8f96dc1c4c306341031569937', 4, 'Assessor 1', '2018-07-05 10:39:44', '2018-07-05 10:39:44');
 
 -- --------------------------------------------------------
 
@@ -196,7 +197,8 @@ CREATE TABLE `role` (
 INSERT INTO `role` (`id_role`, `role`, `created_at`, `updated_at`) VALUES
 (1, 'Admin', '2018-03-11 14:58:34', '2018-03-11 14:58:34'),
 (2, 'Kepala Dinas', '2018-04-05 07:38:37', '2018-04-05 07:38:37'),
-(3, 'Siswa', '2018-04-05 07:38:37', '2018-04-05 07:38:37');
+(3, 'Siswa', '2018-04-05 07:38:37', '2018-04-05 07:38:37'),
+(4, 'Assessor', '2018-07-05 10:35:03', '2018-07-05 10:35:03');
 
 -- --------------------------------------------------------
 
@@ -338,7 +340,7 @@ ALTER TABLE `kriteria`
 -- AUTO_INCREMENT for table `pengguna`
 --
 ALTER TABLE `pengguna`
-  MODIFY `id_pengguna` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_pengguna` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `penilaian`
@@ -350,7 +352,7 @@ ALTER TABLE `penilaian`
 -- AUTO_INCREMENT for table `role`
 --
 ALTER TABLE `role`
-  MODIFY `id_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `sekolah`

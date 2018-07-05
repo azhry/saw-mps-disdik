@@ -40,7 +40,7 @@
     <section id="wrapper">
         <div class="login-register">        
             <div class="login-box card">
-            <div class="card-body">
+            <div class="card-body container">
                 <?= form_open( 'login', [ 'class' => 'form-horizontal form-material', 'id' => 'loginform' ] ) ?>
                     <h3 class="box-title m-b-20">Sign In</h3>
                     <div class="form-group ">

@@ -45,6 +45,16 @@ class Electre {
 		echo '<br>';
 		$this->showMatrix( $this->discordanceMatrix() );
 		echo '<br>';
+		$matrix = $this->concordanceMatrix();
+		$concordanceDominance = $this->dominanceMatrix($matrix);
+		echo '<br>';
+		$matrix = $this->discordanceMatrix();
+		$discordanceDominance = $this->dominanceMatrix($matrix);
+		echo '<br>';
+		$aggregateMatrix = $this->aggregateMatrix($concordanceDominance, $discordanceDominance);
+		echo '<pre>';
+		var_dump($this->ranks($aggregateMatrix));
+		echo '</pre>';
 	}
 
 	public function fit( $data, $weights, $excludedCols = [] ) {
@@ -154,10 +164,6 @@ class Electre {
 
 	}
 
-	private function concordanceThreshold() {
-		
-	}
-
 	private function discordanceMatrix() {
 
 		$discordanceMatrix = [];
@@ -181,4 +187,38 @@ class Electre {
 
 	}
 
+	private function dominanceThreshold($matrix) {
+		$c = array_sum(array_map(function($row) { return array_sum($row); }, $matrix));
+		$m = count($matrix);
+		$divisor = $m * ($m - 1);
+		return $c / $divisor;
+	}
+
+	private function dominanceMatrix($matrix) {
+		$threshold = $this->dominanceThreshold($matrix);
+		return array_map(function($row) use ($threshold) {
+			return array_map(function($el) use ($threshold) {
+				return $el >= $threshold ? 1 : 0;
+			}, $row);
+		}, $matrix);
+	}
+
+	private function aggregateMatrix($concordanceDominance, $discordanceDominance) {
+		$aggregateMatrix = [];
+		for ($i = 0; $i < count($concordanceDominance); $i++) {
+			for ($j = 0; $j < count($discordanceDominance); $j++) {
+				$aggregateMatrix[$i][$j] = $concordanceDominance[$i][$j] * $discordanceDominance[$i][$j];
+			}
+		}
+		return $aggregateMatrix;
+	}
+
+	private function ranks($aggregateMatrix) {
+		$score = array_map(function($row) {
+			return array_sum($row);
+		}, $aggregateMatrix);
+
+		array_multisort($score, SORT_DESC, $this->dataCopy);
+		return $this->dataCopy;
+	}
 }
