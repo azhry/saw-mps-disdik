@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 05, 2018 at 12:43 PM
+-- Generation Time: Jul 12, 2018 at 02:37 AM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.11
 
@@ -98,6 +98,7 @@ INSERT INTO `komentar` (`id_komentar`, `id_pengguna`, `id_role`, `nama`, `email`
 CREATE TABLE `kriteria` (
   `id_kriteria` int(11) NOT NULL,
   `kriteria` varchar(300) NOT NULL,
+  `deskripsi` text NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -106,12 +107,12 @@ CREATE TABLE `kriteria` (
 -- Dumping data for table `kriteria`
 --
 
-INSERT INTO `kriteria` (`id_kriteria`, `kriteria`, `created_at`, `updated_at`) VALUES
-(1, 'Guru', '2018-02-28 13:44:34', '2018-02-28 13:44:34'),
-(2, 'Kepala Sekolah', '2018-02-28 13:44:47', '2018-02-28 13:44:47'),
-(3, 'Sarana dan Prasarana', '2018-02-28 13:45:02', '2018-02-28 13:45:02'),
-(4, 'Lingkungan', '2018-02-28 13:45:11', '2018-02-28 13:45:11'),
-(6, 'Proses Belajar', '2018-02-28 13:45:49', '2018-02-28 13:45:49');
+INSERT INTO `kriteria` (`id_kriteria`, `kriteria`, `deskripsi`, `created_at`, `updated_at`) VALUES
+(1, 'Guru', '', '2018-02-28 13:44:34', '2018-02-28 13:44:34'),
+(2, 'Kepala Sekolah', '', '2018-02-28 13:44:47', '2018-02-28 13:44:47'),
+(3, 'Sarana dan Prasarana', '', '2018-02-28 13:45:02', '2018-02-28 13:45:02'),
+(4, 'Lingkungan', '', '2018-02-28 13:45:11', '2018-02-28 13:45:11'),
+(6, 'Proses Belajar', '', '2018-02-28 13:45:49', '2018-02-28 13:45:49');
 
 -- --------------------------------------------------------
 

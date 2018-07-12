@@ -22,12 +22,12 @@
                         <!-- <li>
                             <a href="<?= base_url( 'admin/komentar' ) ?>" class="waves-effect"><i class="fa fa-comments m-r-10" aria-hidden="true"></i>Beri Komentar</a>
                         </li> -->
-                        <!-- <li>
+                        <li>
                             <a href="<?= base_url( 'admin/data-kriteria' ) ?>" class="waves-effect"><i class="fa fa-table m-r-10" aria-hidden="true"></i>Data Kriteria</a>
                         </li>
                         <li>
                             <a href="<?= base_url( 'admin/data-bobot' ) ?>" class="waves-effect"><i class="fa fa-table m-r-10" aria-hidden="true"></i>Data Bobot</a>
-                        </li> -->
+                        </li>
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->

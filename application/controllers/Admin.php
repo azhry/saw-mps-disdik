@@ -64,7 +64,8 @@ class Admin extends MY_Controller {
 		if ( $this->POST( 'submit' ) ) {
 
 			$this->data['kriteria']	= [
-				'kriteria'	=> $this->POST( 'kriteria' )
+				'kriteria'	=> $this->POST( 'kriteria' ),
+				'deskripsi'	=> $this->POST('deskripsi')
 			];
 			$this->kriteria_m->insert( $this->data['kriteria'] );
 			$this->flashmsg( 'Data kriteria berhasil ditambahkan' );
@@ -91,7 +92,8 @@ class Admin extends MY_Controller {
 		if ( $this->POST( 'submit' ) ) {
 
 			$this->data['kriteria']	= [
-				'kriteria'	=> $this->POST( 'kriteria' )
+				'kriteria'	=> $this->POST( 'kriteria' ),
+				'deskripsi'	=> $this->POST('deskripsi')
 			];
 			$this->kriteria_m->update( $this->data['id_kriteria'], $this->data['kriteria'] );
 			$this->flashmsg( 'Data kriteria berhasil disunting' );
