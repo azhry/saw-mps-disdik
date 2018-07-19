@@ -25,6 +25,9 @@ class Login extends MY_Controller
 				case 4:
 					redirect('assessor/data-penilaian');
 					break;
+				case 5:
+					redirect('admin-sekolah');
+					break;
 
 			}
 
