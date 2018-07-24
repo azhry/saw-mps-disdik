@@ -32,18 +32,16 @@ class Saw_m extends MY_Model {
 		$query = $this->db->get();
 		$result = $query->result();
 
-		if ( count( $result ) > 0 ) {
+		if (count( $result ) > 0) 
+		{
 
 			$final_result = 0;
-			foreach ( $result as $row ) {
-				// echo '1/5 * ' . $row->nilai/$this->normalize( $row->id_kriteria ) . ' = ' . ( 1/5 ) * ( $row->nilai/$this->normalize( $row->id_kriteria ) ) . '<br>';
-				$final_result += ( 1/5 ) * ( $row->nilai/$this->normalize( $row->id_kriteria ) );
+			foreach ($result as $row) 
+			{
+				$final_result += (1 / count($result)) * ($row->nilai/$this->normalize( $row->id_kriteria ));
 			}
-
 			return $final_result;
-
 		}
-
 		return null;
 
 	}
