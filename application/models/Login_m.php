@@ -23,26 +23,9 @@ class Login_m extends MY_Model {
 
 			return $check_account;
 
-		} else {
-
-			$this->data['table_name']	= 'siswa';
-			$check_account = $this->get_row([ 'nis' => $nip, 'password' => $password ]);
-			if ( isset( $check_account ) ) {
-
-				$this->session->set_userdata([
-					'id_pengguna'	=> $check_account->id_siswa,
-					'id_role'		=> 3,
-					'nis'			=> $check_account->nis
-				]);
-
-				return $check_account;
-
-			}
+		} 
 
 		}
 
-		return false;
-
 	}
 
-}

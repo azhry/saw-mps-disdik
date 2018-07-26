@@ -1,4 +1,4 @@
-	<!-- ============================================================== -->
+    <!-- ============================================================== -->
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
         <header class="topbar">
@@ -12,14 +12,14 @@
                         <b>
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                             <!-- Dark Logo icon -->
-                            <img src="<?= base_url( 'assets' ) ?>/assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
+                            <img src="<?= base_url( 'assets' ) ?>/assets/images/kemdikbud.png" alt="homepage" class="dark-logo" />
                             
                         </b>
                         <!--End Logo icon -->
                         <!-- Logo text -->
                         <span>
                          <!-- dark Logo text -->
-                         Dinas Pendidikan
+                         <b>Dinas Pendidikan</b>
                          </span> </a>
                 </div>
                 <!-- ============================================================== -->

@@ -3,10 +3,10 @@
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-6 col-8 align-self-center">
-                        <h3 class="text-themecolor m-b-0 m-t-0">Data Kriteria</h3>
+                        <h3 class="text-themecolor m-b-0 m-t-0">Admin Sekolah</h3>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="<?= base_url( 'admin' ) ?>">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Data Kriteria</li>
+                            <li class="breadcrumb-item active">Admin Sekolah</li>
                         </ol>
                     </div>
                 </div>
@@ -21,9 +21,9 @@
                     <div class="col-sm-12">
                         <div class="card">
                             <div class="card-block">
-                                <h4 class="card-title">Data Kriteria</h4>
+                                <h4 class="card-title">Admin Sekolah</h4>
                                 <div class="card-subtitle">
-                                	<a href="<?= base_url( 'admin/insert-kriteria' ) ?>" class="btn btn-success"><i class="fa fa-plus"></i></a>
+                                	<a href="<?= base_url( 'admin/tambah-admin-sekolah' ) ?>" class="btn btn-success"><i class="fa fa-plus"></i></a>
                                 </div>
                                 <div class="table-responsive">
                                     <?= $this->session->flashdata( 'msg' ) ?>
@@ -31,20 +31,21 @@
                                         <thead>
                                             <tr>
                                                 <th>#</th>
-                                                <th>Kriteria</th>
-                                                <th>Bobot Prioritas</th>
+                                                <th>NIP</th>
+                                                <th>Nama</th>
+                                                <th>Sekolah</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php $i = 0; foreach ( $kriteria as $row ): ?>
+                                            <?php $i = 0; foreach ( $admin as $row ): ?>
                                         	<tr>
                                         		<td><?= ++$i ?></td>
-                                        		<td><?= $row->kriteria ?></td>
-                                                <td><?= $row->nilai_prioritas ?></td>
+                                        		<td><?= $row->nip ?></td>
+                                        		<td><?= $row->nama ?></td>
+                                                <td><?= $row->nama_sekolah ?></td>
                                         		<td>
-                                        			<a href="<?= base_url( 'admin/edit-kriteria/' . $row->id_kriteria ) ?>" class="btn btn-primary"><i class="fa fa-edit"></i></a>
-                                        			<a href="<?= base_url( 'admin/data-kriteria?delete=true&id_kriteria=' . $row->id_kriteria ) ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                        			<a href="<?= base_url( 'admin/data-admin-sekolah?delete=true&id=' . $row->id ) ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                                         		</td>
                                         	</tr>
                                         	<?php endforeach; ?>

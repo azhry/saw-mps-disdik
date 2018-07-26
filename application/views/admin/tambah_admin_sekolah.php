@@ -3,11 +3,11 @@
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-6 col-8 align-self-center">
-                        <h3 class="text-themecolor m-b-0 m-t-0">Insert Kriteria</h3>
+                        <h3 class="text-themecolor m-b-0 m-t-0">Tambah Admin Sekolah</h3>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="<?= base_url( 'admin' ) ?>">Home</a></li>
-                            <li class="breadcrumb-item"><a href="<?= base_url( 'admin/data-kriteria' ) ?>">Data Kriteria</a></li>
-                            <li class="breadcrumb-item active">Insert Kriteria</li>
+                            <li class="breadcrumb-item"><a href="<?= base_url( 'admin/data-admin-sekolah' ) ?>">Data Admin Sekolah</a></li>
+                            <li class="breadcrumb-item active">Tambah Admin Sekolah</li>
                         </ol>
                     </div>
                 </div>
@@ -23,23 +23,31 @@
                     <div class="col-lg-12 col-xlg-12 col-md-12">
                         <div class="card">
                             <div class="card-block">
-                            	<?= form_open( 'admin/insert-kriteria', [ 'class' => 'form-horizontal form-material' ] ) ?>
+                            	<?= form_open( 'admin/tambah-admin-sekolah', [ 'class' => 'form-horizontal form-material' ] ) ?>
                                     <div class="form-group">
-                                        <label class="col-md-12">Nama Kriteria</label>
+                                        <label class="col-md-12">NIP</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="kriteria" class="form-control form-control-line">
+                                            <input type="text" name="nip" class="form-control form-control-line">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-12">Deskripsi</label>
+                                        <label class="col-md-12">Nama</label>
                                         <div class="col-md-12">
-                                            <textarea class="form-control form-control-line" name="deskripsi"></textarea>
+                                            <input type="text" name="nama" class="form-control form-control-line">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-md-12">Bobot Prioritas</label>
+                                        <label class="col-md-12">Sekolah</label>
+                                        <select class="form-control" name="id_sekolah">
+                                        	<?php foreach ($sekolah as $row): ?>
+                                        	<option value="<?= $row->id_sekolah ?>"><?= $row->nama_sekolah ?></option>
+                                        	<?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12">Password</label>
                                         <div class="col-md-12">
-                                            <input type="number" step="any" name="nilai_prioritas" class="form-control form-control-line">
+                                            <input type="password" name="password" class="form-control form-control-line">
                                         </div>
                                     </div>
                                     <div class="form-group">

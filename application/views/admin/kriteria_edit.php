@@ -38,6 +38,12 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label class="col-md-12">Bobot Prioritas</label>
+                                        <div class="col-md-12">
+                                            <input type="number" step="any" value="<?= $kriteria->nilai_prioritas ?>" name="nilai_prioritas" class="form-control form-control-line">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <div class="col-sm-12">
                                         	<input type="submit" name="submit" value="Submit" class="btn btn-success">
                                         </div>

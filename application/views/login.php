@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,19 +9,25 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="<?= base_url( 'assets' ) ?>/assets/images/favicon.png">
-    <title>Sistem MPS Disdik</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="<?= base_url( 'assets' ) ?>/assets/images/kemdik.png">
+    <title>Dinas Pendidikan Kota Jambi</title>
     <!-- Bootstrap Core CSS -->
     <link href="<?= base_url( 'assets' ) ?>/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="<?= base_url( 'assets' ) ?>/monster-lite/css/style.css" rel="stylesheet">
     <!-- You can change the theme colors from here -->
     <link href="<?= base_url( 'assets' ) ?>/monster-lite/css/colors/blue.css" id="theme" rel="stylesheet">
+
+    <link href="<?= base_url( 'assets') ?>/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
 <![endif]-->
 </head>
 
@@ -30,38 +35,60 @@
     <!-- ============================================================== -->
     <!-- Preloader - style you can find in spinners.css -->
     <!-- ============================================================== -->
-    <div class="preloader">
-        <svg class="circular" viewBox="25 25 50 50">
-            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
-    </div>
+   
     <!-- ============================================================== -->
     <!-- Main wrapper - style you can find in pages.scss -->
     <!-- ============================================================== -->
-    <section id="wrapper">
-        <div class="login-register">        
+            <div class="row">
+            <div class="col-sm-6 col-md-4 col-md-offset-4">
+            <div class="login-register">        
             <div class="login-box card">
             <div class="card-body container">
-                <?= form_open( 'login', [ 'class' => 'form-horizontal form-material', 'id' => 'loginform' ] ) ?>
-                    <h3 class="box-title m-b-20">Sign In</h3>
-                    <div class="form-group ">
+                <div class="text-center login-logo">
+                 <div class="container">
+                    <p id="profile-name" class="profile-name-card"></p>
+                    
+                    <img src="<?php echo base_url ();?>assets/assets/images/gogo.png" width=100" height="70" >
+                    <?= form_open( 'login', [ 'class' => 'form-horizontal form-material', 'id' => 'loginform' ] ) ?>
+                    <br>
+                    <h4 class="text-center">Dinas Pendidikan Kota Jambi</h4>
+                    <h2 class="text-center login-title">Sign In</h2>
+                    <br>
+                    <div class="account-wall">
+                    <div class="form-signin">
+                        <div class="card">
                         <div class="col-xs-12">
-                            <input class="form-control" type="text" required="" name="nip" placeholder="NIP/NIS"> </div>
+                            <input class="form-control" type="text" required="" name="nip" placeholder="NIP/NIS" required autofocus> 
+                        </div>
+
                     </div>
-                    <div class="form-group">
+                    
+                    
+                    
+                        <div class="card">
                         <div class="col-xs-12">
-                            <input class="form-control" type="password" name="password" required="" placeholder="Password"> </div>
-                    </div>
-                    <div class="form-group text-center m-t-20">
-                        <div class="col-xs-12">
-                            <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit" name="login" value="Log In">Log In</button>
+                            <input class="form-control" type="password" name="password" required="" placeholder="Password"> 
                         </div>
                     </div>
+                    </div>
+                    <!--</div>
+                    <div class="form-group text-center m-t-20">
+                        <div class="col-xs-12">-->
+                            <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit" name="login" value="Log In">Log In</button>
+                        </div>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+            </div>
+                </div>
                 <?= form_close() ?>
             </div>
           </div>
-        </div>
+      </div>
         
-    </section>
+        
+  
     <!-- ============================================================== -->
     <!-- End Wrapper -->
     <!-- ============================================================== -->
@@ -88,19 +115,7 @@
     <!-- ============================================================== -->
     <script src="<?= base_url( 'assets' ) ?>/assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
 
-    <!--Start of Tawk.to Script-->
-    <script type="text/javascript">
-        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-        (function(){
-            var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-            s1.async=true;
-            s1.src='https://embed.tawk.to/5aa544ed4b401e45400d9d65/default';
-            s1.charset='UTF-8';
-            s1.setAttribute('crossorigin','*');
-            s0.parentNode.insertBefore(s1,s0);
-        })();
-    </script>
-    <!--End of Tawk.to Script-->
+   
 </body>
 
 </html>

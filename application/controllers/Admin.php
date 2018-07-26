@@ -64,8 +64,9 @@ class Admin extends MY_Controller {
 		if ( $this->POST( 'submit' ) ) {
 
 			$this->data['kriteria']	= [
-				'kriteria'	=> $this->POST( 'kriteria' ),
-				'deskripsi'	=> $this->POST('deskripsi')
+				'kriteria'			=> $this->POST( 'kriteria' ),
+				'deskripsi'			=> $this->POST('deskripsi'),
+				'nilai_prioritas'	=> $this->POST('nilai_prioritas')
 			];
 			$this->kriteria_m->insert( $this->data['kriteria'] );
 			$this->flashmsg( 'Data kriteria berhasil ditambahkan' );
@@ -92,8 +93,9 @@ class Admin extends MY_Controller {
 		if ( $this->POST( 'submit' ) ) {
 
 			$this->data['kriteria']	= [
-				'kriteria'	=> $this->POST( 'kriteria' ),
-				'deskripsi'	=> $this->POST('deskripsi')
+				'kriteria'			=> $this->POST( 'kriteria' ),
+				'deskripsi'			=> $this->POST('deskripsi'),
+				'nilai_prioritas'	=> $this->POST('nilai_prioritas')
 			];
 			$this->kriteria_m->update( $this->data['id_kriteria'], $this->data['kriteria'] );
 			$this->flashmsg( 'Data kriteria berhasil disunting' );
@@ -435,6 +437,54 @@ class Admin extends MY_Controller {
 		$this->data['title']	= 'Beri Komentar';
 		$this->data['content']	= 'admin/komentar';
 		$this->template($this->data, 'admin');
+	}
+
+	public function data_admin_sekolah()
+	{
+		$this->load->model('admin_sekolah_m');
+		if ( $this->GET( 'delete' ) && $this->GET( 'id' ) ) 
+		{
+
+			$this->admin_sekolah_m->delete( $this->GET( 'id' ) );
+			$this->flashmsg( 'Data admin sekolah berhasil dihapus' );
+			redirect( 'admin/data-admin-sekolah' );
+			exit;
+
+		}
+		$this->data['admin']	= $this->admin_sekolah_m->get_admin();
+		$this->data['title']	= 'Data Admin Sekolah';
+		$this->data['content']	= 'admin/data_admin_sekolah';
+		$this->template($this->data, 'admin');
+	}
+
+	public function tambah_admin_sekolah()
+	{
+		$this->load->model('admin_sekolah_m');
+		$this->load->model('sekolah_m');
+		$this->load->model('pengguna_m');
+		if ($this->POST('submit'))
+		{
+			$this->data['pengguna'] = [
+				'nip'		=> $this->POST('nip'),
+				'password'	=> md5($this->POST('password')),
+				'nama'		=> $this->POST('nama'),
+				'id_role'	=> 5
+			];
+			$this->pengguna_m->insert($this->data['pengguna']);
+
+			$this->data['admin'] = [
+				'id_pengguna'	=> $this->db->insert_id(),
+				'id_sekolah'	=> $this->POST('id_sekolah')
+			];
+			$this->admin_sekolah_m->insert($this->data['admin']);
+			$this->flashmsg('Admin sekolah berhasil ditambahkan');
+			redirect('admin/data-admin-sekolah');
+		}
+
+		$this->data['sekolah']	= $this->sekolah_m->get();
+		$this->data['title']	= 'Data Admin Sekolah';
+		$this->data['content']	= 'admin/tambah_admin_sekolah';
+		$this->template($this->data, 'admin');	
 	}
 
 	public function monster_lite() {

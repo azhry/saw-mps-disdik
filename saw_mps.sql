@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
--- https://www.phpmyadmin.net/
+-- version 4.5.4.1deb2ubuntu2
+-- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Jul 19, 2018 at 06:38 PM
--- Server version: 10.1.28-MariaDB
--- PHP Version: 7.1.11
+-- Host: localhost
+-- Generation Time: Jul 26, 2018 at 01:39 PM
+-- Server version: 5.7.22-0ubuntu0.16.04.1
+-- PHP Version: 7.0.30-0ubuntu0.16.04.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -19,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `saw_mps2`
+-- Database: `saw_mps`
 --
 
 -- --------------------------------------------------------
@@ -40,7 +38,7 @@ CREATE TABLE `admin_sekolah` (
 --
 
 INSERT INTO `admin_sekolah` (`id`, `id_pengguna`, `id_sekolah`, `created_at`) VALUES
-(1, 4, 10, '2018-07-19 15:52:16');
+(3, 7, 6, '2018-07-25 05:59:51');
 
 -- --------------------------------------------------------
 
@@ -56,22 +54,6 @@ CREATE TABLE `bobot` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `bobot`
---
-
-INSERT INTO `bobot` (`id_bobot`, `nama`, `nilai`, `id_kriteria`, `created_at`, `updated_at`) VALUES
-(17, 'Ada', 1, 7, '2018-07-12 16:05:16', '2018-07-12 16:05:16'),
-(18, 'Tidak Ada', 0, 7, '2018-07-12 16:05:37', '2018-07-12 16:05:37'),
-(19, 'Ada', 1, 8, '2018-07-12 16:10:31', '2018-07-12 16:10:31'),
-(20, 'Tidak Ada', 0, 8, '2018-07-12 16:10:49', '2018-07-12 16:10:49'),
-(21, 'Ada', 1, 9, '2018-07-13 10:55:31', '2018-07-13 10:55:31'),
-(22, 'Tidak Ada', 0, 9, '2018-07-13 10:55:41', '2018-07-13 10:55:41'),
-(23, 'Ada', 1, 10, '2018-07-13 10:56:00', '2018-07-13 10:56:00'),
-(24, 'Tidak Ada', 0, 10, '2018-07-13 10:56:11', '2018-07-13 10:56:11'),
-(25, 'Lengkap', 1, 11, '2018-07-13 10:56:38', '2018-07-13 10:56:38'),
-(26, 'Tidak Lengkap', 0, 11, '2018-07-13 10:56:53', '2018-07-13 10:56:53');
 
 -- --------------------------------------------------------
 
@@ -114,40 +96,10 @@ CREATE TABLE `kriteria` (
   `id_kriteria` int(11) NOT NULL,
   `kriteria` varchar(300) NOT NULL,
   `deskripsi` text NOT NULL,
+  `nilai_prioritas` float NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `kriteria`
---
-
-INSERT INTO `kriteria` (`id_kriteria`, `kriteria`, `deskripsi`, `created_at`, `updated_at`) VALUES
-(7, 'Pengembangan Kompetensi Sikap Spiritual', '', '2018-07-12 16:04:33', '2018-07-12 16:04:33'),
-(8, 'Pengembangan Kompetensi Sikap Sosial', '', '2018-07-12 16:09:42', '2018-07-12 16:09:42'),
-(9, 'Pengembangan Kompetensi Pengetahuan', '', '2018-07-12 16:11:55', '2018-07-12 16:11:55'),
-(10, 'Pengembangan Kompetensi Keterampilan', '', '2018-07-12 16:12:14', '2018-07-12 16:12:14'),
-(11, 'Komponen-komponen KTSP', '1. Visi, misi, dan tujuan\r\n2. Muatan kurikuler\r\n3. Pengaturan beban belajar siswa dan beban kerja guru\r\n4. Kalender pendidikan\r\n5. Silabus mata pelajaran\r\n6. RPP ', '2018-07-12 16:18:08', '2018-07-12 16:18:08'),
-(12, 'Prosedur Operasional Pengembangan KTSP', '1. Draf analisis KTSP\r\n2. Draf penyusunan KTSP\r\n3. Penetapan Dokumen Final KTSP\r\n4. Pengesahan Dokumen Final KTSP', '2018-07-12 17:29:26', '2018-07-12 17:29:26'),
-(13, 'Pelaksanaan Kurikulum', '1. Struktur Kurikulum\r\n2. Penugasan terstruktur dan kegiatan mandiri tidak terstruktur maksimal 60% dari jam tatap muka\r\n3. Beban kerja guru dan beban belajar siswa\r\n4. Mata pelajaran seni budaya dan prakarya\r\n5. Pengembangan diri (layanan konseling dan kegiatan ekstrakulikuler) dan cara penilaiannya', '2018-07-12 17:35:38', '2018-07-12 17:35:38'),
-(14, 'Kelengkapan RPP Kelas X', '', '2018-07-12 17:48:35', '2018-07-12 17:48:35'),
-(15, 'Kelengkapan RPP Kelas XI', '', '2018-07-12 17:48:46', '2018-07-12 17:48:46'),
-(16, 'Kelengkapan RPP Kelas XII', '', '2018-07-12 17:48:53', '2018-07-12 17:48:53'),
-(17, 'Penggunaan penilaian otentik oleh guru ', '', '2018-07-12 17:51:33', '2018-07-12 17:51:33'),
-(18, 'Pemantauan proses pembelajaran oleh kepala sekolah/madrasah', '1. Diskusi Kelompok Terfokus\r\n2. Pengamatan\r\n3. Pencatatan\r\n4. Perekaman\r\n5. Wawancara\r\n6. Pendokumentasian', '2018-07-12 17:54:23', '2018-07-12 17:54:23'),
-(19, 'Mengembangkan kegiatan literasi', '1. Perencanaan dan penilaian program\r\n2. Ketersediaan waktu yang cukup untuk kegiatan literasi\r\n3. Membaca/menulis buku\r\n4. Menyelenggarakan lomba\r\n5. Memajang karya tulis siswa\r\n6. Penghargaan terhadap prestasi siswa\r\n7. Pelatihan tentang literasi', '2018-07-12 18:12:55', '2018-07-12 18:12:55'),
-(20, 'Mengembangkan perilaku sehat jasmani dan rohani', '1. Olahraga\r\n2. Snei\r\n3. Kepramukaan\r\n4. UKS\r\n5. Keagamaan\r\n6. Lomba yang terkait dengan kesehatan jasmani dan rohani', '2018-07-13 10:38:06', '2018-07-13 10:38:06'),
-(21, 'Kepala sekolah/madrasah memiliki kemampuan kewirausahaan', '1. Melakukan inovasi\r\n2. Bekerja Keras\r\n3. Memiliki motivasi\r\n4. Pantang Menyerah\r\n5. Memiliki naluri kewirausahaan', '2018-07-13 10:39:49', '2018-07-13 10:39:49'),
-(22, 'Sekolah/madrasah memiliki ruang perpustakaan dengan luas dan sarana sesuai standar', '1. Luas sesuai standar\r\n2. sarana,sesuai standar\r\n3. ketersediaan data pengunjung\r\n4. kondisi terawat, bersih, dan nyaman', '2018-07-13 10:43:48', '2018-07-13 10:43:48'),
-(23, 'Dokumen struktur organisasi sekolah/madrasah', '1. Notulen rapat terkait struktur organisasi sekolah/madrasah\r\n2. Penetapan struktur organisasi sekolah/madrasah\r\n3. Sosialisasi struktur organisasi sekolah/madrasah, foto kegiatan, dokumen pertemuan seosialisasi\r\n4. Bukti pengesahan struktur organisasi sekolah/madrasah\r\n5. Rincian tugas setiap personil dalam struktur organisasi', '2018-07-13 10:50:17', '2018-07-13 10:50:17'),
-(24, 'Rata-Rata Nilai UAN', '', '2018-07-13 10:51:57', '2018-07-13 10:51:57'),
-(25, 'Lokasi sekolah', '', '2018-07-13 10:52:09', '2018-07-13 10:52:09'),
-(26, 'Ketersediaan Ekstrakulikuler', '', '2018-07-13 10:52:36', '2018-07-13 10:52:36'),
-(27, 'Prestasi Sekolah', '', '2018-07-13 10:52:45', '2018-07-13 10:52:45'),
-(28, 'Lingkungan Sekolah', '', '2018-07-13 10:53:13', '2018-07-13 10:53:13'),
-(29, 'Dokumen penilaian kompetensi sikap', '', '2018-07-13 10:53:42', '2018-07-13 10:53:42'),
-(30, 'Dokumen penilaian kompetensi pengetahuan ', '', '2018-07-13 10:53:56', '2018-07-13 10:53:56'),
-(31, 'Dokumen penilaian kompetensi keterampilan', '', '2018-07-13 10:54:09', '2018-07-13 10:54:09');
 
 -- --------------------------------------------------------
 
@@ -170,10 +122,11 @@ CREATE TABLE `pengguna` (
 --
 
 INSERT INTO `pengguna` (`id_pengguna`, `nip`, `password`, `id_role`, `nama`, `created_at`, `updated_at`) VALUES
-(1, '09021181419007', '985fabf8f96dc1c4c306341031569937', 1, 'Rizqi Adi Surya', '2018-06-01 11:38:12', '2018-03-11 15:25:23'),
-(2, '1212', '827ccb0eea8a706c4c34a16891f84e7b', 2, 'Surya Rizqi Adi', '2018-06-01 14:03:37', '2018-06-01 14:03:37'),
-(3, '12345', '985fabf8f96dc1c4c306341031569937', 4, 'Assessor 1', '2018-07-05 10:39:44', '2018-07-05 10:39:44'),
-(4, '111', '985fabf8f96dc1c4c306341031569937', 5, 'Admin SMA 1', '2018-07-19 08:51:56', '2018-07-19 08:51:56');
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 1, 'Rizqi Adi Surya (Admin)', '2018-07-25 05:57:13', '2018-03-11 15:25:23'),
+(2, 'kepaladinas', '1b5cd66e42cb5019a2a88bd499dc7031', 2, 'Syuryadi (Kepala Dinas)', '2018-07-25 05:57:44', '2018-06-01 14:03:37'),
+(3, 'assesor', 'b760a39e2e750f91b8cbb2f36ea29f7e', 4, 'Assesor Sekolah', '2018-07-25 05:58:11', '2018-07-05 10:39:44'),
+(7, '09031381419107', '815bb58100335a29d93794997013afd5', 5, 'Admin SMA EL MUNDO', '2018-07-25 05:59:50', '2018-07-25 05:59:50'),
+(8, '222', '985fabf8f96dc1c4c306341031569937', 1, 'adm00n', '2018-07-26 13:26:06', '2018-07-26 13:26:06');
 
 -- --------------------------------------------------------
 
@@ -187,17 +140,6 @@ CREATE TABLE `penilaian` (
   `id_kriteria` int(11) NOT NULL,
   `id_bobot` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `penilaian`
---
-
-INSERT INTO `penilaian` (`id_nilai`, `id_sekolah`, `id_kriteria`, `id_bobot`) VALUES
-(21, 6, 7, 17),
-(22, 7, 7, 18),
-(23, 9, 7, 17),
-(24, 6, 7, 17),
-(25, 6, 8, 19);
 
 -- --------------------------------------------------------
 
@@ -221,7 +163,7 @@ INSERT INTO `role` (`id_role`, `role`, `created_at`, `updated_at`) VALUES
 (2, 'Kepala Dinas', '2018-04-05 07:38:37', '2018-04-05 07:38:37'),
 (3, 'Siswa', '2018-04-05 07:38:37', '2018-04-05 07:38:37'),
 (4, 'Assessor', '2018-07-05 10:35:03', '2018-07-05 10:35:03'),
-(5, 'Admin Sekolah', '2018-07-19 16:07:05', '2018-07-19 16:07:05');
+(5, 'Admin Sekolah', '2018-07-24 14:44:01', '2018-07-24 14:44:01');
 
 -- --------------------------------------------------------
 
@@ -383,56 +325,47 @@ ALTER TABLE `siswa`
 -- AUTO_INCREMENT for table `admin_sekolah`
 --
 ALTER TABLE `admin_sekolah`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `bobot`
 --
 ALTER TABLE `bobot`
-  MODIFY `id_bobot` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
-
+  MODIFY `id_bobot` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
 --
 -- AUTO_INCREMENT for table `komentar`
 --
 ALTER TABLE `komentar`
   MODIFY `id_komentar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
 --
 -- AUTO_INCREMENT for table `kriteria`
 --
 ALTER TABLE `kriteria`
-  MODIFY `id_kriteria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
-
+  MODIFY `id_kriteria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 --
 -- AUTO_INCREMENT for table `pengguna`
 --
 ALTER TABLE `pengguna`
-  MODIFY `id_pengguna` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
+  MODIFY `id_pengguna` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `penilaian`
 --
 ALTER TABLE `penilaian`
-  MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
-
+  MODIFY `id_nilai` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `role`
 --
 ALTER TABLE `role`
   MODIFY `id_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
 -- AUTO_INCREMENT for table `sekolah`
 --
 ALTER TABLE `sekolah`
   MODIFY `id_sekolah` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
-
 --
 -- AUTO_INCREMENT for table `siswa`
 --
 ALTER TABLE `siswa`
   MODIFY `id_siswa` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- Constraints for dumped tables
 --
@@ -469,7 +402,6 @@ ALTER TABLE `penilaian`
 --
 ALTER TABLE `siswa`
   ADD CONSTRAINT `siswa_ibfk_1` FOREIGN KEY (`id_sekolah`) REFERENCES `sekolah` (`id_sekolah`) ON DELETE CASCADE ON UPDATE CASCADE;
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

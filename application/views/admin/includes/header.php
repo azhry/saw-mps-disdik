@@ -9,7 +9,7 @@
     <meta name="description" content="MPS-Disdik">
     <meta name="author" content="Rizki Adi Surya">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="<?= base_url( 'assets/assets/images/favicon.png' ) ?>">
+    <link rel="icon" type="image/png" sizes="16x16" href="<?= base_url( 'assets/assets/images/kemdik.png' ) ?>">
     <title><?= $title . ' | Sistem MPS Disdik' ?></title>
     <!-- Bootstrap Core CSS -->
     <link href="<?= base_url( 'assets/assets/plugins/bootstrap/css/bootstrap.min.css' ) ?>" rel="stylesheet">
